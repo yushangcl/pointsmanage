@@ -1,9 +1,9 @@
 package win.likie.point.entity;
 
 public class ClientInfoKey {
-    private Integer clientId;
+    private Integer clientId; //客户编号
 
-    private String clientMobile;
+    private String clientMobile; //客户电话
 
     public Integer getClientId() {
         return clientId;

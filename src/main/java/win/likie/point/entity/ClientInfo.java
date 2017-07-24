@@ -3,13 +3,13 @@ package win.likie.point.entity;
 import java.util.Date;
 
 public class ClientInfo extends ClientInfoKey {
-    private String clientName;
+    private String clientName; //客户姓名
 
-    private Integer purchasedPoints;
+    private Integer purchasedPoints; //已购积分
 
-    private Integer convertedPoints;
+    private Integer convertedPoints; //已换积分
 
-    private Integer remainingPoints;
+    private Integer remainingPoints; //剩余积分
 
     private Date createTime;
 

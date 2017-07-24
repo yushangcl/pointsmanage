@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+                        http://www.springframework.org/schema/context
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd
+                        http://www.springframework.org/schema/mvc
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <!-- mvc controller -->
+    <context:component-scan base-package="win.likie.point" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 加载jdbc.properties -->
+    <util:properties id="jdbc" location="classpath:jdbc-basic.properties">
+    </util:properties>
+
+    <!-- 声明连接池 -->
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="#{jdbc.driver}"></property>
+        <property name="url" value="#{jdbc.url}"></property>
+        <property name="username" value="#{jdbc.username}"></property>
+        <property name="password" value="#{jdbc.password}"></property>
+    </bean>
+    <!-- 配置Session工厂 -->
+    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 注入DataSource -->
+        <property name="dataSource" ref="dataSource"></property>
+        <!-- 声明需要加载的mapper.xml, 该bean被创建之后会自动加载这些文件 -->
+        <property name="mapperLocations" value="classpath:win/likie/point/mapper/*.xml">
+        </property>
+    </bean>
+
+    <!-- 配置MapperScannerConfigurer -->
+    <bean id="MapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!--
+            注入需要扫描的包，它会自动扫描这个包下的接口，
+            然后实现这些接口，并且会实例化这些接口的实现类
+         -->
+        <property name="basePackage" value="win.likie.point.mapper"></property>
+    </bean>
+
+    <!-- 定义跳转的文件的前后缀 ，视图模式配置-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <!-- 这里的配置我的理解是自动给后面action的方法return的字符串加上前缀和后缀，变成一个 可用的url地址 -->
+        <property name="prefix" value="/WEB-INF/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+</beans>
