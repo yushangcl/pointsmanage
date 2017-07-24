@@ -3,6 +3,7 @@ package win.likie.point.dubbo.service.impl;
 import org.junit.Test;
 import win.likie.point.BaseTest;
 import win.likie.point.dubbo.service.ClientInfoService;
+import win.likie.point.entity.ClientInfo;
 
 import javax.annotation.Resource;
 
@@ -17,7 +18,7 @@ public class TestServiceImplTest extends BaseTest{
 
 	@Test
 	public void test1() throws Exception {
-		clientInfoService.test();
+		clientInfoService.insertClientInfo(new ClientInfo());
 	}
 
 }
