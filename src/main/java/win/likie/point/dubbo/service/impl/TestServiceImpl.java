@@ -1,5 +1,6 @@
 package win.likie.point.dubbo.service.impl;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import win.likie.point.dubbo.service.TestService;
@@ -10,8 +11,7 @@ import win.likie.point.dubbo.service.TestService;
 
 @Service
 public class TestServiceImpl implements TestService {
-    public static org.slf4j.Logger _log = LoggerFactory.getLogger(TestServiceImpl.class);
-
+    public static Logger _log = LoggerFactory.getLogger(TestServiceImpl.class);
     @Override
     public void test() throws Exception {
         System.out.println();

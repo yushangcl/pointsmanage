@@ -44,7 +44,7 @@
             注入需要扫描的包，它会自动扫描这个包下的接口，
             然后实现这些接口，并且会实例化这些接口的实现类
          -->
-        <property name="basePackage" value="top.annwz.base.mapper"></property>
+        <property name="basePackage" value="win.likie.point.mapper"></property>
     </bean>
 
     <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
