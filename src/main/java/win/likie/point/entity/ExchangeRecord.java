@@ -2,16 +2,19 @@ package win.likie.point.entity;
 
 import java.util.Date;
 
+/**
+ * 兑换记录
+ */
 public class ExchangeRecord {
-    private Integer exchangeRecords;
+    private Integer exchangeRecords; //兑换记录号
 
-    private String clientMobile;
+    private String clientMobile; //客户电话
 
-    private Date exchangeDate;
+    private Date exchangeDate; //兑换日期
 
-    private String exchangePoints;
+    private String exchangePoints; //兑换积分
 
-    private String remarks;
+    private String remarks; //备注
 
     public Integer getExchangeRecords() {
         return exchangeRecords;

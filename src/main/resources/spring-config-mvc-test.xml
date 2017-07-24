@@ -13,6 +13,10 @@
     <context:component-scan base-package="win.likie.point" use-default-filters="false">
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
+    <context:component-scan base-package="win.likie.point.dubbo.service"/>
+    <!-- spring mvc 开启注解扫描-->
+    <mvc:annotation-driven>
+    </mvc:annotation-driven>
 
     <!-- 加载jdbc.properties -->
     <util:properties id="jdbc" location="classpath:jdbc-basic.properties">
@@ -30,7 +34,7 @@
         <!-- 注入DataSource -->
         <property name="dataSource" ref="dataSource"></property>
         <!-- 声明需要加载的mapper.xml, 该bean被创建之后会自动加载这些文件 -->
-        <property name="mapperLocations" value="classpath:win/likie/point/mapper/*.xml">
+        <property name="mapperLocations" value="win/likie/point/mapper/*.xml">
         </property>
     </bean>
 

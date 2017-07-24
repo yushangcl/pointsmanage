@@ -3,8 +3,8 @@
 <mapper namespace="win.likie.point.mapper.ClientInfoMapper">
   <resultMap id="BaseResultMap" type="win.likie.point.entity.ClientInfo">
     <id column="client_id" jdbcType="INTEGER" property="clientId" />
-    <id column="client_mobile" jdbcType="VARCHAR" property="clientMobile" />
     <result column="client_name" jdbcType="VARCHAR" property="clientName" />
+    <result column="client_mobile" jdbcType="VARCHAR" property="clientMobile" />
     <result column="purchased_points" jdbcType="INTEGER" property="purchasedPoints" />
     <result column="converted_points" jdbcType="INTEGER" property="convertedPoints" />
     <result column="remaining_points" jdbcType="INTEGER" property="remainingPoints" />
@@ -12,26 +12,24 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    client_id, client_mobile, client_name, purchased_points, converted_points, remaining_points, 
+    client_id, client_name, client_mobile, purchased_points, converted_points, remaining_points, 
     create_time, update_time
   </sql>
-  <select id="selectByPrimaryKey" parameterType="win.likie.point.entity.ClientInfoKey" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from client_info
     where client_id = #{clientId,jdbcType=INTEGER}
-      and client_mobile = #{clientMobile,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="win.likie.point.entity.ClientInfoKey">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from client_info
     where client_id = #{clientId,jdbcType=INTEGER}
-      and client_mobile = #{clientMobile,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="win.likie.point.entity.ClientInfo">
-    insert into client_info (client_id, client_mobile, client_name, 
+    insert into client_info (client_id, client_name, client_mobile, 
       purchased_points, converted_points, remaining_points, 
       create_time, update_time)
-    values (#{clientId,jdbcType=INTEGER}, #{clientMobile,jdbcType=VARCHAR}, #{clientName,jdbcType=VARCHAR}, 
+    values (#{clientId,jdbcType=INTEGER}, #{clientName,jdbcType=VARCHAR}, #{clientMobile,jdbcType=VARCHAR}, 
       #{purchasedPoints,jdbcType=INTEGER}, #{convertedPoints,jdbcType=INTEGER}, #{remainingPoints,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
@@ -41,11 +39,11 @@
       <if test="clientId != null">
         client_id,
       </if>
-      <if test="clientMobile != null">
-        client_mobile,
-      </if>
       <if test="clientName != null">
         client_name,
+      </if>
+      <if test="clientMobile != null">
+        client_mobile,
       </if>
       <if test="purchasedPoints != null">
         purchased_points,
@@ -67,11 +65,11 @@
       <if test="clientId != null">
         #{clientId,jdbcType=INTEGER},
       </if>
-      <if test="clientMobile != null">
-        #{clientMobile,jdbcType=VARCHAR},
-      </if>
       <if test="clientName != null">
         #{clientName,jdbcType=VARCHAR},
+      </if>
+      <if test="clientMobile != null">
+        #{clientMobile,jdbcType=VARCHAR},
       </if>
       <if test="purchasedPoints != null">
         #{purchasedPoints,jdbcType=INTEGER},
@@ -96,6 +94,9 @@
       <if test="clientName != null">
         client_name = #{clientName,jdbcType=VARCHAR},
       </if>
+      <if test="clientMobile != null">
+        client_mobile = #{clientMobile,jdbcType=VARCHAR},
+      </if>
       <if test="purchasedPoints != null">
         purchased_points = #{purchasedPoints,jdbcType=INTEGER},
       </if>
@@ -113,17 +114,16 @@
       </if>
     </set>
     where client_id = #{clientId,jdbcType=INTEGER}
-      and client_mobile = #{clientMobile,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="win.likie.point.entity.ClientInfo">
     update client_info
     set client_name = #{clientName,jdbcType=VARCHAR},
+      client_mobile = #{clientMobile,jdbcType=VARCHAR},
       purchased_points = #{purchasedPoints,jdbcType=INTEGER},
       converted_points = #{convertedPoints,jdbcType=INTEGER},
       remaining_points = #{remainingPoints,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where client_id = #{clientId,jdbcType=INTEGER}
-      and client_mobile = #{clientMobile,jdbcType=VARCHAR}
   </update>
 </mapper>

@@ -16,6 +16,10 @@
             <param-value>classpath:spring-config-mvc.xml</param-value>
         </init-param>
 
+        <init-param>
+            <param-name>detectAllHandlerExceptionResolvers</param-name><!-- 取消其自动注册的异常解析器 -->
+            <param-value>false</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 

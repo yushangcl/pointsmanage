@@ -2,16 +2,19 @@ package win.likie.point.entity;
 
 import java.util.Date;
 
+/**
+ * 消费记录
+ */
 public class ExpensesRecord {
-    private Integer recordNumber;
+    private Integer recordNumber; //记录号
 
-    private String clientMobile;
+    private String clientMobile; //客户电话
 
-    private Date consumptionDate;
+    private Date consumptionDate; //消费日期
 
-    private Double amount;
+    private Double amount; //消费金额
 
-    private String remarks;
+    private String remarks; //备注信息
 
     public Integer getRecordNumber() {
         return recordNumber;

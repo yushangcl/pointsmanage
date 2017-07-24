@@ -2,64 +2,87 @@ package win.likie.point.entity;
 
 import java.util.Date;
 
-public class ClientInfo extends ClientInfoKey {
-    private String clientName; //客户姓名
+/**
+ * 客户信息
+ */
+public class ClientInfo {
+	private Integer clientId; // 客户编号
 
-    private Integer purchasedPoints; //已购积分
+	private String clientName; //客户姓名
 
-    private Integer convertedPoints; //已换积分
+	private String clientMobile; //客户电话
 
-    private Integer remainingPoints; //剩余积分
+	private Integer purchasedPoints; //已购积分
 
-    private Date createTime;
+	private Integer convertedPoints; //已换积分
 
-    private Date updateTime;
+	private Integer remainingPoints; //已换积分
 
-    public String getClientName() {
-        return clientName;
-    }
+	private Date createTime; //创建时间
 
-    public void setClientName(String clientName) {
-        this.clientName = clientName == null ? null : clientName.trim();
-    }
+	private Date updateTime; //更新时间
 
-    public Integer getPurchasedPoints() {
-        return purchasedPoints;
-    }
+	public Integer getClientId() {
+		return clientId;
+	}
 
-    public void setPurchasedPoints(Integer purchasedPoints) {
-        this.purchasedPoints = purchasedPoints;
-    }
+	public void setClientId(Integer clientId) {
+		this.clientId = clientId;
+	}
 
-    public Integer getConvertedPoints() {
-        return convertedPoints;
-    }
+	public String getClientName() {
+		return clientName;
+	}
 
-    public void setConvertedPoints(Integer convertedPoints) {
-        this.convertedPoints = convertedPoints;
-    }
+	public void setClientName(String clientName) {
+		this.clientName = clientName == null ? null : clientName.trim();
+	}
 
-    public Integer getRemainingPoints() {
-        return remainingPoints;
-    }
+	public String getClientMobile() {
+		return clientMobile;
+	}
 
-    public void setRemainingPoints(Integer remainingPoints) {
-        this.remainingPoints = remainingPoints;
-    }
+	public void setClientMobile(String clientMobile) {
+		this.clientMobile = clientMobile == null ? null : clientMobile.trim();
+	}
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+	public Integer getPurchasedPoints() {
+		return purchasedPoints;
+	}
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public void setPurchasedPoints(Integer purchasedPoints) {
+		this.purchasedPoints = purchasedPoints;
+	}
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
+	public Integer getConvertedPoints() {
+		return convertedPoints;
+	}
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+	public void setConvertedPoints(Integer convertedPoints) {
+		this.convertedPoints = convertedPoints;
+	}
+
+	public Integer getRemainingPoints() {
+		return remainingPoints;
+	}
+
+	public void setRemainingPoints(Integer remainingPoints) {
+		this.remainingPoints = remainingPoints;
+	}
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
 }
