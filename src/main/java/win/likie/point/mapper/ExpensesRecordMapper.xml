@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="win.likie.point.mapper.ExpensesRecordMapper">
+  <resultMap id="BaseResultMap" type="win.likie.point.entity.ExpensesRecord">
+    <id column="record_number" jdbcType="INTEGER" property="recordNumber" />
+    <result column="client_mobile" jdbcType="VARCHAR" property="clientMobile" />
+    <result column="consumption_date" jdbcType="TIMESTAMP" property="consumptionDate" />
+    <result column="amount" jdbcType="DOUBLE" property="amount" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    record_number, client_mobile, consumption_date, amount, remarks
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from expenses_record
+    where record_number = #{recordNumber,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from expenses_record
+    where record_number = #{recordNumber,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="win.likie.point.entity.ExpensesRecord">
+    insert into expenses_record (record_number, client_mobile, consumption_date, 
+      amount, remarks)
+    values (#{recordNumber,jdbcType=INTEGER}, #{clientMobile,jdbcType=VARCHAR}, #{consumptionDate,jdbcType=TIMESTAMP}, 
+      #{amount,jdbcType=DOUBLE}, #{remarks,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="win.likie.point.entity.ExpensesRecord">
+    insert into expenses_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordNumber != null">
+        record_number,
+      </if>
+      <if test="clientMobile != null">
+        client_mobile,
+      </if>
+      <if test="consumptionDate != null">
+        consumption_date,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordNumber != null">
+        #{recordNumber,jdbcType=INTEGER},
+      </if>
+      <if test="clientMobile != null">
+        #{clientMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptionDate != null">
+        #{consumptionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="win.likie.point.entity.ExpensesRecord">
+    update expenses_record
+    <set>
+      <if test="clientMobile != null">
+        client_mobile = #{clientMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="consumptionDate != null">
+        consumption_date = #{consumptionDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where record_number = #{recordNumber,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="win.likie.point.entity.ExpensesRecord">
+    update expenses_record
+    set client_mobile = #{clientMobile,jdbcType=VARCHAR},
+      consumption_date = #{consumptionDate,jdbcType=TIMESTAMP},
+      amount = #{amount,jdbcType=DOUBLE},
+      remarks = #{remarks,jdbcType=VARCHAR}
+    where record_number = #{recordNumber,jdbcType=INTEGER}
+  </update>
+</mapper>
