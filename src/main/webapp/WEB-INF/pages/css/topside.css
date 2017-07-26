@@ -1,0 +1,196 @@
+@charset "utf-8";
+/* CSS Document */
+/* ---------------头部------------------ */
+.top {
+	position: absolute;
+	width: 100%;
+	min-width: 1200px;
+	left: 0px;
+	top: 0px;
+	right: 0px;
+	height: 60px;
+	z-index:10000;
+	background: url(../images/top_bg.png) right no-repeat #af111e
+}
+.logo {
+	width: 200px;
+	height: 100%;
+	float: left;
+}
+.top_img {
+	width: auto;
+	float: left;
+	height: 60px;
+	margin-right: 20px
+}
+.top_img img {
+	height: 100%;
+}
+.top_nav {
+	width: auto;
+	height: 100%;
+	float: left;
+}
+.top_nav a {
+	width: 100px;
+	height: 100%;
+	float: left;
+	display: block;
+	color: #fff;
+	line-height: 60px;
+	text-align: center;
+	font-size: 14px;
+	margin-right: 2px;
+}
+.top_nav a:hover {
+	background-color: #ab242e;
+}
+.top_nav a.end {
+	background: #921e27;
+}
+.top_nav a:active {
+	background: #921e27;
+}
+.kb_nav {
+	width: 100px;
+	height: 60px;
+	display: block;
+	float: right;
+	margin-right: 30px;
+	background: url(../images/kb_nav_bg.png)
+}
+.kb_nav:hover {
+	background: url(../images/kb_nav_bg.png) 0 -60px
+}
+.kb_nav:active {
+	background: url(../images/kb_nav_bg.png) 0 -120px
+}
+.account {
+	width: auto;
+	float: right;
+	height: 60px;
+	color: #fff;
+	margin-right:10px
+}
+.account_arrow p {
+	width: auto;
+	display: block;
+	float: left;
+	line-height: 60px;
+}
+.account_arrow {
+	width: auto;
+	padding-right:30px;
+	height: 60px;
+	background: url(../images/account.png) right 0 no-repeat;
+	float: left;
+	cursor: pointer
+}
+.account_arrow:hover {
+	background: url(../images/account.png) right -60px no-repeat;
+}
+.account_arrow:hover span, .account_arrow:active span {
+	display: block
+}
+.account_arrow:active {
+	background: url(../images/account.png) right -120px no-repeat;
+}
+.account_arrow span {
+	width: 80px;
+	height: auto;
+	background-color: #af111e;
+	display: none;
+	position: absolute;
+	right:10px;
+	top: 40px;
+	z-index: 10000;
+	text-align: center;
+}
+.account_arrow span a {
+	display: block;
+	border-bottom: 1px solid #fff;
+	width: 100%;
+	line-height: 40px;
+}
+.account_arrow span a:hover {
+	opacity: 0.8;
+	filter: progid:DXImageTransform.Microsoft.Alpha(opacity=80);
+}
+
+/* ---------------边栏------------------ */
+.side {
+	position: absolute;
+	left: 0px;
+	top: 60px;
+	bottom: 6px;
+	width: 200px;
+	overflow: auto;
+	background-color: #41474c;
+}
+.side_list1 {
+	font-family: "宋体";
+	font-weight: bold;
+	color: #ccc;
+	line-height: 48px;
+	padding-bottom: 6px;
+	padding-left: 42px;
+	background: url(../images/nav_tit.png) left top no-repeat #484f55
+}
+.side_list2 a {
+	color: #f1f1f1;
+	display: block;
+	line-height: 48px;
+	padding-left: 60px;
+	border-bottom: 1px solid #57585a;
+	background: url(../images/nav_ico.png) 25px 0 no-repeat #41474c
+}
+.side_list2 a:hover {
+	background: url(../images/nav_ico.png) 25px -48px no-repeat #34393d;
+	color: #F90
+}
+.side_list2 a:active, .side_list2 a.end {
+	background: url(../images/nav_end.png) left no-repeat #34393d;
+	color: #F90
+}
+/* ---------------按钮------------------ */
+.full_btn_box {
+	width: 100%;
+	height: 40px;
+	margin-top: 10px;
+	position: relative;
+}
+.wid_btn_box {
+	width: 220px;
+	height: 40px;
+	margin: 10px auto;
+}
+.btn_red, .btn_gray {
+	width: 100px;
+	height: 40px;
+	margin-right: 20px;
+	display: block;
+	float: left;
+	text-align: center;
+	line-height: 40px;
+	color: #fff;
+	font-weight: bold;
+	font-family: "宋体"
+}
+.btn_red {
+	background: url(../images/btn_bg2.png)
+}
+.btn_red:hover {
+	background: url(../images/btn_bg2.png) 0 -40px
+}
+.btn_red:active {
+	background: url(../images/btn_bg2.png) 0 -80px
+}
+.btn_gray {
+	background: url(../images/btn_bg2.png) -100px 0
+}
+.btn_gray:hover {
+	background: url(../images/btn_bg2.png) -100px -40px
+}
+.btn_gray:active {
+	background: url(../images/btn_bg2.png) -100px -80px
+}
