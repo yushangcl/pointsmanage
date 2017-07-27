@@ -31,7 +31,7 @@
       create_time, update_time)
     values (#{clientId,jdbcType=INTEGER}, #{clientName,jdbcType=VARCHAR}, #{clientMobile,jdbcType=VARCHAR}, 
       #{purchasedPoints,jdbcType=INTEGER}, #{convertedPoints,jdbcType=INTEGER}, #{remainingPoints,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+      sysdate() , sysdate() )
   </insert>
   <insert id="insertSelective" parameterType="win.likie.point.entity.ClientInfo">
     insert into client_info
@@ -54,10 +54,10 @@
       <if test="remainingPoints != null">
         remaining_points,
       </if>
-      <if test="createTime != null">
+      <if test="createTime == null">
         create_time,
       </if>
-      <if test="updateTime != null">
+      <if test="updateTime == null">
         update_time,
       </if>
     </trim>
@@ -80,11 +80,11 @@
       <if test="remainingPoints != null">
         #{remainingPoints,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIMESTAMP},
+      <if test="createTime == null">
+       sysdate() ,
       </if>
-      <if test="updateTime != null">
-        #{updateTime,jdbcType=TIMESTAMP},
+      <if test="updateTime == null">
+       sysdate() ,
       </if>
     </trim>
   </insert>
@@ -106,11 +106,8 @@
       <if test="remainingPoints != null">
         remaining_points = #{remainingPoints,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="updateTime != null">
-        update_time = #{updateTime,jdbcType=TIMESTAMP},
+        update_time = sysdate(),
       </if>
     </set>
     where client_id = #{clientId,jdbcType=INTEGER}
@@ -122,8 +119,29 @@
       purchased_points = #{purchasedPoints,jdbcType=INTEGER},
       converted_points = #{convertedPoints,jdbcType=INTEGER},
       remaining_points = #{remainingPoints,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
-      update_time = #{updateTime,jdbcType=TIMESTAMP}
+      update_time = sysdate()
     where client_id = #{clientId,jdbcType=INTEGER}
   </update>
+
+  <select id="getsByMap" parameterType="java.util.HashMap" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from client_info
+    where 1=1
+    <foreach collection="map.keys" item="_itemKey" open=""  separator="">
+      <if test="null != map[_itemKey]">
+        and ${_itemKey} = #{map[${_itemKey}]}
+      </if>
+    </foreach>
+  </select>
+  <select id="getCountByMap" parameterType="java.util.HashMap" resultType="java.lang.Integer" >
+    select count(1)
+    from client_info
+    where 1=1
+    <foreach collection="map.keys" item="_itemKey" open=""  separator="">
+      <if test="null != map[_itemKey]">
+        and ${_itemKey} = #{map[${_itemKey}]}
+      </if>
+    </foreach>
+  </select>
 </mapper>

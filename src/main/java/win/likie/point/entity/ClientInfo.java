@@ -85,4 +85,18 @@ public class ClientInfo {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
+
+	@Override
+	public String toString() {
+		return "ClientInfo{" +
+				"clientId=" + clientId +
+				", clientName='" + clientName + '\'' +
+				", clientMobile='" + clientMobile + '\'' +
+				", purchasedPoints=" + purchasedPoints +
+				", convertedPoints=" + convertedPoints +
+				", remainingPoints=" + remainingPoints +
+				", createTime=" + createTime +
+				", updateTime=" + updateTime +
+				'}';
+	}
 }

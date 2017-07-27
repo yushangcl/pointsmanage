@@ -55,4 +55,15 @@ public class ExpensesRecord {
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
     }
+
+    @Override
+    public String toString() {
+        return "ExpensesRecord{" +
+                "recordNumber=" + recordNumber +
+                ", clientMobile='" + clientMobile + '\'' +
+                ", consumptionDate=" + consumptionDate +
+                ", amount=" + amount +
+                ", remarks='" + remarks + '\'' +
+                '}';
+    }
 }

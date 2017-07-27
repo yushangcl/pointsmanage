@@ -55,4 +55,15 @@ public class ExchangeRecord {
     public void setRemarks(String remarks) {
         this.remarks = remarks == null ? null : remarks.trim();
     }
+
+    @Override
+    public String toString() {
+        return "ExchangeRecord{" +
+                "exchangeRecords=" + exchangeRecords +
+                ", clientMobile='" + clientMobile + '\'' +
+                ", exchangeDate=" + exchangeDate +
+                ", exchangePoints='" + exchangePoints + '\'' +
+                ", remarks='" + remarks + '\'' +
+                '}';
+    }
 }
