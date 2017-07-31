@@ -19,8 +19,39 @@
     select 
     <include refid="Base_Column_List" />
     from client_info
-    where client_id = #{clientId,jdbcType=INTEGER}
+    /*where client_id = #{clientId,jdbcType=INTEGER}*/
   </select>
+
+  <select id="selectAllClientInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from client_info
+    <trim prefix=" where " suffix=" " suffixOverrides=",">
+      <if test="clientMobile != null ">
+        client_mobile LIKE #{clientMobile,jdbcType=VARCHAR}
+        <if test="clientName != null">
+          and client_name LIKE #{clientName,jdbcType=VARCHAR}
+        </if>
+      </if>
+
+      <if test="clientMobile == null">
+        <if test="clientName != null">
+          client_name LIKE #{clientName,jdbcType=VARCHAR}
+        </if>
+      </if>
+
+    </trim>
+
+
+  </select>
+
+  <select id="selectByClientMobile"  resultMap="BaseResultMap">
+    select
+     *
+    from client_info
+    where client_mobile = #{clientMobile,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from client_info
     where client_id = #{clientId,jdbcType=INTEGER}

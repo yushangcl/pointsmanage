@@ -39,8 +39,8 @@
 
 
 .cx_tb_btn{ width:41px; height:22px; display:block; margin:0 auto; color:#000000;position:relative; background:url(../images/cx_tb_btn_bg.png) no-repeat; padding-right:15px; text-align:center; line-height:22px;}
-.cx_tb_btn:hover{ background:url(../images/cx_tb_btn_bg.png) -56px; }
-.cx_tb_btn:active{ background:url(../images/cx_tb_btn_bg.png) -112px; }
+.cx_tb_btn:hover{ background:url(../images/cx_tb_btn_bg.png) -56px; no-repeat}
+.cx_tb_btn:active{ background:url(../images/cx_tb_btn_bg.png) -112px; no-repeat}
 
 /* ---------------按钮------------------ */
 .full_btn_box{

@@ -7,10 +7,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>客户信息</title>
+    <title>客户兑换记录页面</title>
     <jsp:include page="/WEB-INF/pages/manage/public/comm.jsp"></jsp:include>
     <script type="text/javascript" src="/js/public/common/func.js" ></script>
-    <script type="text/javascript" src="/js/manage/index.js" ></script>
+    <script type="text/javascript" src="/js/manage/exchangerecord_index.js" ></script>
 </head>
 
 <body>
@@ -25,10 +25,6 @@
                         <td><span>客户电话</span>：
                             <input type="text" id="clientMobile" name="clientMobile" value="" maxlength="20"/>
                         </td>
-                        <td><span>客户姓名</span>：
-                            <input type="text" id="clientName" name="clientName" value="" maxlength="20"/>
-                        </td>
-
                     </tr>
                 </table>
 

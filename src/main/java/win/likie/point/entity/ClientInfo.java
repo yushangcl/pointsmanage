@@ -16,7 +16,7 @@ public class ClientInfo {
 
 	private Integer convertedPoints; //已换积分
 
-	private Integer remainingPoints; //已换积分
+	private Integer remainingPoints; //剩余积分
 
 	private Date createTime; //创建时间
 

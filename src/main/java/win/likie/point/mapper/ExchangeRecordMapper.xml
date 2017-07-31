@@ -17,6 +17,23 @@
     from exchange_record
     where exchange_records = #{exchangeRecords,jdbcType=INTEGER}
   </select>
+  <select id="selectAllExchangeRecord"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from exchange_record
+    <if test="clientMobile != null ">
+       where  client_mobile LIKE #{clientMobile,jdbcType=VARCHAR}
+    </if>
+
+  </select>
+
+  <select id="selectByClientMobile"  resultMap="BaseResultMap">
+    select
+    *
+    from exchange_record
+    where client_mobile = #{clientMobile,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from exchange_record
     where exchange_records = #{exchangeRecords,jdbcType=INTEGER}
