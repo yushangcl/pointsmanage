@@ -1,6 +1,7 @@
 package win.likie.point.dubbo.service.impl;
 
 import org.junit.Test;
+import org.springframework.test.annotation.Rollback;
 import win.likie.point.BaseTest;
 import win.likie.point.dubbo.service.ClientInfoService;
 import win.likie.point.dubbo.service.ExchangeRecordService;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * Created by WuHuahui on 2017/7/24.
  */
-
+@Rollback
 public class TestServiceImplTest extends BaseTest{
 
 	@Resource

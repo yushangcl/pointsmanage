@@ -18,7 +18,7 @@ import java.util.List;
  * service层与数据打交道，实现业务逻辑
  */
 @Service
-public class ClientInfoServiceImpl implements ClientInfoService{
+public class ClientInfoServiceImpl implements ClientInfoService {
 
 	@Resource
 	private ClientInfoMapper clientInfoMapper;

@@ -107,4 +107,25 @@
       remarks = #{remarks,jdbcType=VARCHAR}
     where exchange_records = #{exchangeRecords,jdbcType=INTEGER}
   </update>
+  <select id="getsByMap" parameterType="java.util.HashMap" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from exchange_record
+    where 1=1
+    <foreach collection="map.keys" item="_itemKey" open=""  separator="">
+      <if test="null != map[_itemKey]">
+        and ${_itemKey} = #{map[${_itemKey}]}
+      </if>
+    </foreach>
+  </select>
+  <select id="getCountByMap" parameterType="java.util.HashMap" resultType="java.lang.Integer" >
+    select count(1)
+    from exchange_record
+    where 1=1
+    <foreach collection="map.keys" item="_itemKey" open=""  separator="">
+      <if test="null != map[_itemKey]">
+        and ${_itemKey} = #{map[${_itemKey}]}
+      </if>
+    </foreach>
+  </select>
 </mapper>
