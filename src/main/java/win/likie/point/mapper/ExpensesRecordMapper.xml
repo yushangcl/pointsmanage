@@ -93,7 +93,7 @@
   <select id="getsByMap" parameterType="java.util.HashMap" resultMap="BaseResultMap" >
     select
     <include refid="Base_Column_List" />
-    from exchange_record
+    from expenses_record
     where 1=1
     <foreach collection="map.keys" item="_itemKey" open=""  separator="">
       <if test="null != map[_itemKey]">
@@ -103,12 +103,21 @@
   </select>
   <select id="getCountByMap" parameterType="java.util.HashMap" resultType="java.lang.Integer" >
     select count(1)
-    from exchange_record
+    from expenses_record
     where 1=1
     <foreach collection="map.keys" item="_itemKey" open=""  separator="">
       <if test="null != map[_itemKey]">
         and ${_itemKey} = #{map[${_itemKey}]}
       </if>
     </foreach>
+  </select>
+  <select id="selectAllExpensesRecord"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from expenses_record
+    <if test="clientMobile != null ">
+      where  client_mobile LIKE #{clientMobile,jdbcType=VARCHAR}
+    </if>
+
   </select>
 </mapper>

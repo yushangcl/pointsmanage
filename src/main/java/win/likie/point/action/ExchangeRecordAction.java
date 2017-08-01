@@ -42,7 +42,6 @@ public class ExchangeRecordAction extends BaseAction {
     @RequestMapping(value = "/index")
     public ModelAndView Index(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
         ModelAndView mav = new ModelAndView();
-        System.out.println("add");
         mav.setViewName("/manage/exchangerecord_index");
         return mav;
 
