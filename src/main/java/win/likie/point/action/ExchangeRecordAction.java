@@ -15,6 +15,7 @@ import win.likie.point.entity.ClientInfo;
 import win.likie.point.entity.ExchangeRecord;
 import win.likie.point.formbean.JsonBean;
 import win.likie.point.formbean.Page;
+import win.likie.point.utils.RegexUtils;
 import win.likie.point.utils.StringUtils;
 import win.likie.point.utils.SysParamUtil;
 
@@ -142,17 +143,14 @@ public class ExchangeRecordAction extends BaseAction {
             HttpServletRequest request,
             HttpServletResponse response) throws ParseException {
 
-        String message = "";
-        Map<String, String> map = null;
-
         ClientInfo clientInfo = null;
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         JsonBean bean = new JsonBean();
         HashMap<String, String> queryMap = new HashMap<String, String>();
-        if (StringUtils.isBlank(clientMobile)) {
-            bean.fail("操作失败！");
+        if (!RegexUtils.checkMobile(clientMobile)) {
+            bean.fail("手机号码不正确");
             return bean;
         }
 

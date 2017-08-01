@@ -13,6 +13,7 @@ import win.likie.point.entity.ClientInfo;
 import win.likie.point.formbean.JsonBean;
 import win.likie.point.formbean.Page;
 import win.likie.point.mapper.ClientInfoMapper;
+import win.likie.point.utils.RegexUtils;
 import win.likie.point.utils.StringUtils;
 import win.likie.point.utils.SysParamUtil;
 
@@ -68,7 +69,6 @@ public class ClientInfoAction {
         //clientMobile = "12234567895";
         Integer totalCount = null;
         Integer toatlPages = 1;
-
         HashMap<String, String> queryMap = new HashMap<String, String>();
         queryMap.put("clientMobile", clientMobile);
         queryMap.put("clientName", clientName);
@@ -143,8 +143,8 @@ public class ClientInfoAction {
 
         JsonBean bean = new JsonBean();
 
-        if (StringUtils.isBlank(clientMobile)) {
-            bean.fail("操作失败！");
+        if (!RegexUtils.checkMobile(clientMobile)) {
+            bean.fail("手机号码不正确");
             return bean;
         }
         clientInfo = clientInfoService.selectClientInfoByMobile(clientMobile);

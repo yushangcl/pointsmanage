@@ -17,4 +17,6 @@ public interface ExpensesRecordService {
      * @return
      */
     List<ExpensesRecord> selectExpensesRecord(String clientMobile);
+
+    ExpensesRecord selectByPrimaryKey(Integer expensesId);
 }

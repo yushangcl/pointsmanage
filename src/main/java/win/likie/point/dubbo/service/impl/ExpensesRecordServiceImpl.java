@@ -27,4 +27,9 @@ public class ExpensesRecordServiceImpl implements ExpensesRecordService {
         }
         return expensesRecordMapper.selectAllExpensesRecord(clientMobile);
     }
+
+    @Override
+    public ExpensesRecord selectByPrimaryKey(Integer expensesId) {
+        return expensesRecordMapper.selectByPrimaryKey(expensesId);
+    }
 }

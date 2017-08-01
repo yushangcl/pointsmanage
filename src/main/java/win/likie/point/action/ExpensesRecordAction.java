@@ -3,23 +3,30 @@ package win.likie.point.action;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import win.likie.point.dubbo.service.ClientInfoService;
 import win.likie.point.dubbo.service.ExpensesRecordService;
+import win.likie.point.entity.ClientInfo;
 import win.likie.point.entity.ExchangeRecord;
 import win.likie.point.entity.ExpensesRecord;
 import win.likie.point.formbean.JsonBean;
 import win.likie.point.formbean.Page;
+import win.likie.point.utils.RegexUtils;
+import win.likie.point.utils.StringUtils;
 import win.likie.point.utils.SysParamUtil;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * Created by huahui.wu on 2017/8/1.
@@ -29,6 +36,8 @@ import java.util.List;
 public class ExpensesRecordAction extends BaseAction{
     @Resource
     private ExpensesRecordService expensesRecordService;
+    @Resource
+    private ClientInfoService clientInfoService;
 
     @RequestMapping(value = "/index")
     public ModelAndView Index(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
@@ -103,11 +112,102 @@ public class ExpensesRecordAction extends BaseAction{
         ExpensesRecord  expensesRecord = null;
         if (!"".equals(expensesRecordsStr)) {
             expensesRecords = Integer.valueOf(expensesRecordsStr);
-//            exchangeRecord = expensesRecordService.selectByPrimaryKey(expensesRecords);
+            expensesRecord = expensesRecordService.selectByPrimaryKey(expensesRecords);
         }
         mav.addObject("expensesRecord", expensesRecord);
         mav.setViewName("/manage/expenses_add");
         return mav;
+
+    }
+
+    /**
+     * 客户兑换记录保存
+     *
+     * @throws ParseException
+     */
+    @Transactional
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public @ResponseBody
+    JsonBean save(
+            @RequestParam(value = "expensesRecords", defaultValue = "") String expensesRecords,
+            @RequestParam(value = "clientMobile", defaultValue = "") String clientMobile,
+            @RequestParam(value = "expensesPoints", defaultValue = "0") Integer expensesPoints,
+            @RequestParam(value = "expensesDate", defaultValue = "") String expensesDate,
+            @RequestParam(value = "remarks", defaultValue = "") String remarks,
+            @RequestParam(value = "operMode", defaultValue = "") String operMode,
+            HttpServletRequest request,
+            HttpServletResponse response) throws ParseException {
+
+        ClientInfo clientInfo = null;
+
+
+        JsonBean bean = new JsonBean();
+        HashMap<String, String> queryMap = new HashMap<String, String>();
+        if (!RegexUtils.checkMobile(clientMobile)) {
+            bean.fail("手机号码不正确");
+            return bean;
+        }
+
+//        clientInfo = expensesRecordService.selectClientInfoByMobile(clientMobile);
+//
+//
+//        if ("add".equals(operMode)) {
+//            if (clientInfo == null) {
+//                bean.fail("该客户不存在，请先在客户信息页面增加该客户！");
+//                return bean;
+//            }
+//
+//            Integer remainingPoints = clientInfo.getRemainingPoints();
+//            if (exchangePoints > remainingPoints) { //当兑换积分>剩余积分时，会出错
+//                bean.fail("该客户积分不够，无法实现兑换，请查清用户剩余积分");
+//                return bean;
+//            }
+//
+//            queryMap.put("clientMobile", clientMobile);
+//            queryMap.put("exchangePoints", String.valueOf(exchangePoints));
+//            queryMap.put("exchangeDate", exchangeDate);
+//            queryMap.put("remarks", remarks);
+//            expensesRecordService.addExchangeRecord(queryMap, clientInfo);
+//        }
+//
+//
+//        if ("update".equals(operMode)) {
+//            ExchangeRecord exchangeRecord = null;
+//
+//            if (!"".equals(exchangeRecordsStr)) {
+//                exchangeRecord = expensesRecordService.selectByPrimaryKey(Integer.valueOf(exchangeRecordsStr));
+//            }
+//
+//            if (clientInfo == null || exchangeRecord == null) {
+//                bean.fail("操作失败！");
+//                return bean;
+//            }
+//            Integer remainingPoints = clientInfo.getRemainingPoints();//剩余积分
+//            Integer convertedPoints = clientInfo.getConvertedPoints();//已换积分
+//            String exchangePointsStr = exchangeRecord.getExchangePoints();
+//            Integer exchangePointsOld = Integer.valueOf(exchangePointsStr);//获取编辑之前的记录
+//
+//            //说明编辑之前的记录是要作废的，那么剩余积分加上上次扣掉的积分，才是当前的剩余积分
+//            remainingPoints += exchangePointsOld;
+//            convertedPoints -= exchangePointsOld;
+//
+//            if (exchangePoints > remainingPoints) { //当兑换积分>剩余积分时，会出错
+//                bean.fail("该客户积分不够，无法实现兑换，请查清用户剩余积分");
+//                return bean;
+//            }
+//            exchangeRecord.setExchangeDate(df.parse(exchangeDate));
+//            exchangeRecord.setRemarks(remarks);
+//            exchangeRecord.setExchangePoints(String.valueOf(exchangePoints));
+//
+//            clientInfo.setUpdateTime(new Date());
+//            clientInfo.setRemainingPoints(remainingPoints);
+//            clientInfo.setConvertedPoints(convertedPoints);
+//
+//            expensesRecordService.updateByPrimaryKey(exchangeRecord);
+//            clientInfoService.updateByPrimaryKeySelective(clientInfo);
+//
+//        }
+        return bean;
 
     }
 
