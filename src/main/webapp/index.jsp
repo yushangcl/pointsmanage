@@ -1,9 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>--%>
-<%--<c:set var="basePath" value="${pageContext.request.contextPath}" />
-<c:set var="pagePath" value="${sessionScope.pagePath}" />
-<c:set var="forwardPage" value="${sessionScope.forwardPage}" />--%>
+<%--<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>--%>
+<%--<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags"%>--%>
+<%--<c:set var="basePath" value="${pageContext.request.contextPath}" />--%>
+<%--<c:set var="pagePath" value="${sessionScope.pagePath}" />--%>
+<%--<c:set var="forwardPage" value="${sessionScope.forwardPage}" />--%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -16,7 +16,6 @@
 <body>
 
 <div class="top">
-
     <div class="main">
         <div class="if_main">
             <div class="topbar">

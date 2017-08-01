@@ -1,90 +1,95 @@
 package win.likie.point.formbean;
 
 public class JsonBean {
-	
-	private String code = "success";
-	private String message = "success";
-	private String errorInfo = "success";
-	
-	private Object bean;
-	private Object subBean;
 
-	public String getCode() {
-		return code;
-	}
+    private String code = "success";
+    private String message = "success";
+    private String errorInfo = "success";
 
-	public String getErrorInfo() {
-		return errorInfo;
-	}
+    private Object bean;
+    private Object subBean;
 
-	public void setErrorInfo(String errorInfo) {
-		this.errorInfo = errorInfo;
-	}
+    public String getCode() {
+        return code;
+    }
 
-	public void setCode(String code) {
-		this.code = code;
-	}
+    public String getErrorInfo() {
+        return errorInfo;
+    }
 
-	public String getMessage() {
-		return message;
-	}
+    public void setErrorInfo(String errorInfo) {
+        this.errorInfo = errorInfo;
+    }
 
-	public void setMessage(String message) {
-		this.message = message;
-	}
+    public void setCode(String code) {
+        this.code = code;
+    }
 
-	public Object getBean() {
-		return bean;
-	}
+    public String getMessage() {
+        return message;
+    }
 
-	public void setBean(Object bean) {
-		this.bean = bean;
-	}
-	
-	
-	public Object getSubBean() {
-		return subBean;
-	}
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
-	public void setSubBean(Object subBean) {
-		this.subBean = subBean;
-	}
+    public Object getBean() {
+        return bean;
+    }
 
-	/**
-	 * 根据失败原因调用该方法
-	 * @param reason
-	 */
-	public void fail(String reason){
-		this.setCode("fail");
-		this.setMessage(reason);
-		this.bean = null;
-	}
-	
-	/**
-	 * 根据失败原因调用该方法
-	 * @param reason
-	 */
-	public void error(String reason,String errorInfo){
-		this.setCode("fail");
-		this.setMessage(reason);
-		this.setErrorInfo(errorInfo);
-		this.bean = null;
-	}
-	/**
-	 * 根据失败原因调用该方法
-	 * @param reason
-	 */
-	public void success(String reason){
-		this.setCode("success");
-		this.setMessage(reason);
-	}
-	
-	/**
-	 * 根据失败原因调用该方法
-	 * @param
-	 */
-	public void fail4hasLogout(){
-		this.setCode("logout");
-		this.bean = null;
-	}
+    public void setBean(Object bean) {
+        this.bean = bean;
+    }
+
+
+    public Object getSubBean() {
+        return subBean;
+    }
+
+    public void setSubBean(Object subBean) {
+        this.subBean = subBean;
+    }
+
+    /**
+     * 根据失败原因调用该方法
+     *
+     * @param reason
+     */
+    public void fail(String reason) {
+        this.setCode("fail");
+        this.setMessage(reason);
+        this.bean = null;
+    }
+
+    /**
+     * 根据失败原因调用该方法
+     *
+     * @param reason
+     */
+    public void error(String reason, String errorInfo) {
+        this.setCode("fail");
+        this.setMessage(reason);
+        this.setErrorInfo(errorInfo);
+        this.bean = null;
+    }
+
+    /**
+     * 根据失败原因调用该方法
+     *
+     * @param reason
+     */
+    public void success(String reason) {
+        this.setCode("success");
+        this.setMessage(reason);
+    }
+
+    /**
+     * 根据失败原因调用该方法
+     *
+     * @param
+     */
+    public void fail4hasLogout() {
+        this.setCode("logout");
+        this.bean = null;
+    }
 }

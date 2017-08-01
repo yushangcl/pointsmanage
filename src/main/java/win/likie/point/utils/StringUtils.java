@@ -9,17 +9,19 @@ import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.*;
 
-public abstract class StringUtils extends org.apache.commons.lang.StringUtils{
+public abstract class StringUtils extends org.apache.commons.lang.StringUtils {
 
 
     /**
      * 随机生成六位数验证码
+     *
      * @return
      */
-    public static int getRandomNum(){
+    public static int getRandomNum() {
         Random r = new Random();
-        return r.nextInt(900000)+100000;//(Math.random()*(999999-100000)+100000)
+        return r.nextInt(900000) + 100000;//(Math.random()*(999999-100000)+100000)
     }
+
     /**
      * 检查指定的字符串是否为空。
      * <ul>
@@ -126,9 +128,9 @@ public abstract class StringUtils extends org.apache.commons.lang.StringUtils{
     public static String toString(byte[] bytes, String charset) {
         return toString(bytes, 0, bytes.length, charset);
     }
-    
+
     public static String toString(Object obj) {
-    	return obj != null ? obj.toString() : null;
+        return obj != null ? obj.toString() : null;
     }
 
     public static String toString(byte[] data, int offset, int length, String charset) {
@@ -186,6 +188,7 @@ public abstract class StringUtils extends org.apache.commons.lang.StringUtils{
 
     /**
      * 将字符串List中的元素中间使用separator分隔连接为一个字符串
+     *
      * @param list
      * @param separator
      * @return
@@ -193,17 +196,18 @@ public abstract class StringUtils extends org.apache.commons.lang.StringUtils{
     public static String joinString(List<String> list, String separator) {
         return joinString(list.iterator(), separator);
     }
-    
+
     public static String joinLong(List<Long> list, String separator) {
         return joinString(list.iterator(), separator);
     }
-    
+
     public static String joinInteger(List<Integer> list, String separator) {
         return joinString(list.iterator(), separator);
     }
 
     /**
      * 将字符串Collection中的元素中间使用separator分隔连接为一个字符串
+     *
      * @param coll
      * @param separator
      * @return
@@ -214,6 +218,7 @@ public abstract class StringUtils extends org.apache.commons.lang.StringUtils{
 
     /**
      * 将字符串Collection中的元素中间使用separator分隔连接为一个字符串
+     *
      * @param list
      * @param separator
      * @return
@@ -228,7 +233,7 @@ public abstract class StringUtils extends org.apache.commons.lang.StringUtils{
         }
         return strBuilder.toString();
     }
-    
+
     public static String[] split(String str, String separator) {
         List<String> list = splitToList(str, separator);
         return list.toArray(new String[list.size()]);
@@ -246,7 +251,7 @@ public abstract class StringUtils extends org.apache.commons.lang.StringUtils{
         }
         int lastIndex = -1;
         int index = str.indexOf(separator);
-		if (-1 == index) {
+        if (-1 == index) {
             list.add(str);
             return list;
         }
@@ -450,11 +455,6 @@ public abstract class StringUtils extends org.apache.commons.lang.StringUtils{
         }
     }
 
-    public static void main(String[] args) {
-        String d = "==--==";
-        System.out.println(toString(d.getBytes()));
-        System.out.println(comDouble(8D, 3D, '/'));
-    }
 
     /**
      * 判断src中是否包含args中的任何一个
@@ -546,6 +546,7 @@ public abstract class StringUtils extends org.apache.commons.lang.StringUtils{
 
     /**
      * 生成自定义长度的字母和数字组合
+     *
      * @param length
      * @return
      */
@@ -561,7 +562,8 @@ public abstract class StringUtils extends org.apache.commons.lang.StringUtils{
     }
 
     /**
-     *  生成自定义长度的字母和数字组合（使用RandomStringUtils）
+     * 生成自定义长度的字母和数字组合（使用RandomStringUtils）
+     *
      * @param length
      * @return
      */
@@ -572,37 +574,38 @@ public abstract class StringUtils extends org.apache.commons.lang.StringUtils{
 
     /**
      * 读取txt里的单行内容
-     * @param fileP  文件路径
+     *
+     * @param fileP 文件路径
      */
     public static String readTxtFile(String fileP) {
         try {
 
-            String filePath = String.valueOf(Thread.currentThread().getContextClassLoader().getResource(""))+"../../";	//项目路径
+            String filePath = String.valueOf(Thread.currentThread().getContextClassLoader().getResource("")) + "../../";    //项目路径
             filePath = filePath.replaceAll("file:/", "");
             filePath = filePath.replaceAll("%20", " ");
             filePath = filePath.trim() + fileP.trim();
-            if(filePath.indexOf(":") != 1){
+            if (filePath.indexOf(":") != 1) {
                 filePath = File.separator + filePath;
             }
             String encoding = "utf-8";
             File file = new File(filePath);
-            if (file.isFile() && file.exists()) { 		// 判断文件是否存在
+            if (file.isFile() && file.exists()) {        // 判断文件是否存在
                 InputStreamReader read = new InputStreamReader(
-                        new FileInputStream(file), encoding);	// 考虑到编码格式
+                        new FileInputStream(file), encoding);    // 考虑到编码格式
                 BufferedReader bufferedReader = new BufferedReader(read);
                 String lineTxt = null;
                 while ((lineTxt = bufferedReader.readLine()) != null) {
                     return lineTxt;
                 }
                 read.close();
-            }else{
-                System.out.println("找不到指定的文件,查看此路径是否正确:"+filePath);
+            } else {
+                System.out.println("找不到指定的文件,查看此路径是否正确:" + filePath);
             }
         } catch (Exception e) {
             System.out.println("读取文件内容出错");
         }
         return "";
     }
-    
+
 }
 

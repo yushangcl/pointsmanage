@@ -13,8 +13,6 @@ import java.util.*;
 
 /**
  * 时间处理工具类
- *
- *
  */
 public class DateUtil {
     private static final Log logger = LogFactory.getLog(DateUtil.class);
@@ -198,7 +196,7 @@ public class DateUtil {
     /**
      * 判断是否日期格式的字符串
      *
-     * @param str 需要判断的日期字符串
+     * @param str    需要判断的日期字符串
      * @param format 时间格式
      * @return
      */
@@ -227,9 +225,9 @@ public class DateUtil {
         if (date == null) {
             throw new IllegalArgumentException("The date must not be null");
         }
-		if (amount == 0) {
-			return date;
-		}
+        if (amount == 0) {
+            return date;
+        }
         Calendar c = Calendar.getInstance();
         c.setTime(date);
         c.add(calendarField, amount);
@@ -362,14 +360,14 @@ public class DateUtil {
      * @return Date
      */
     public static Date maxDate(Date date1, Date date2) {
-		if (date1 == null && date2 != null) {
+        if (date1 == null && date2 != null) {
             return date2;
         } else if (date1 != null && date2 == null) {
             return date1;
-		} else if (date1 != null && date2 != null) {
+        } else if (date1 != null && date2 != null) {
             return date1.before(date2) ? date2 : date1;
-		} else {
-			return null;
+        } else {
+            return null;
         }
     }
 
@@ -578,32 +576,33 @@ public class DateUtil {
 
         return c.getTime();
     }
-    
+
     /**
      * 获取date所在周的周一
+     *
      * @param date
      * @return
      */
-	public static Date getMondayInWeek(Date date) {
+    public static Date getMondayInWeek(Date date) {
 
-		Calendar cal = Calendar.getInstance();
-		cal.setTime(date);
-		// 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了
-		int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
-		if (1 == dayWeek) {
-			cal.add(Calendar.DAY_OF_MONTH, -1);
-		}
-		cal.setFirstDayOfWeek(Calendar.MONDAY);// 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        // 判断要计算的日期是否是周日，如果是则减一天计算周六的，否则会出问题，计算到下一周去了
+        int dayWeek = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
+        if (1 == dayWeek) {
+            cal.add(Calendar.DAY_OF_MONTH, -1);
+        }
+        cal.setFirstDayOfWeek(Calendar.MONDAY);// 设置一个星期的第一天，按中国的习惯一个星期的第一天是星期一
 
-		int day = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
-		cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);// 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
-		cal.set(Calendar.HOUR_OF_DAY, 0);
-		cal.set(Calendar.MINUTE, 0);
-		cal.set(Calendar.SECOND, 0);
-		cal.set(Calendar.MILLISECOND, 0);
+        int day = cal.get(Calendar.DAY_OF_WEEK);// 获得当前日期是一个星期的第几天
+        cal.add(Calendar.DATE, cal.getFirstDayOfWeek() - day);// 根据日历的规则，给当前日期减去星期几与一个星期第一天的差值
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
 
-		return cal.getTime();
-	}
+        return cal.getTime();
+    }
 
     /**
      * 取得系统时间前一天的日期,时分秒被clear为最初时间
@@ -682,59 +681,60 @@ public class DateUtil {
         return lRet;
     }
 
-	/**
-	 * 将java.util.Date转换为 Unix Timestamp
-	 * 
-	 * @param date
-	 * @return
-	 */
-	public static long toUnixTimestamp(Date date) {
-		return date == null ? 0L : date.getTime() / 1000;
-	}
+    /**
+     * 将java.util.Date转换为 Unix Timestamp
+     *
+     * @param date
+     * @return
+     */
+    public static long toUnixTimestamp(Date date) {
+        return date == null ? 0L : date.getTime() / 1000;
+    }
 
-	/**
-	 * 得到两个时间的差值
-	 * @param beginTime 开始时间
-	 * @param endTime  结束时间
-	 * @param calendarField Calendar地fields
-	 * @return
-	 */
-	public static long timeRange(Date beginTime, Date endTime, int calendarField) {
-		if (endTime == null || beginTime == null) {
-			return Long.MIN_VALUE;
-		}
-		long actPassTime = endTime.getTime() - beginTime.getTime();
-		switch (calendarField) {
-		case Calendar.MILLISECOND:
-			break;
-		case Calendar.SECOND:
-			actPassTime /= 1000L;// 秒
-			break;
-		case Calendar.MINUTE:
-			actPassTime /= 1000L * 60;// 秒
-			break;
-		case Calendar.HOUR:
-			actPassTime /= 1000L * 60 * 60;// 秒
-			break;
-		case Calendar.DAY_OF_YEAR:
-			actPassTime /= 1000L * 60 * 60 * 24;// 天
-			break;
-		default:
-			throw new RuntimeException("Not Support Field:" + calendarField);
-		}
-		return actPassTime;
-	}
-	
-	/**
-	 * 将Unix Timestamp转换为java.util.Date
-	 * 
-	 * @param time
-	 * @return
-	 */
-	public static Date fromUnixTimestamp(long time) {
-		return new Date(time * 1000);
-	}
-    
+    /**
+     * 得到两个时间的差值
+     *
+     * @param beginTime     开始时间
+     * @param endTime       结束时间
+     * @param calendarField Calendar地fields
+     * @return
+     */
+    public static long timeRange(Date beginTime, Date endTime, int calendarField) {
+        if (endTime == null || beginTime == null) {
+            return Long.MIN_VALUE;
+        }
+        long actPassTime = endTime.getTime() - beginTime.getTime();
+        switch (calendarField) {
+            case Calendar.MILLISECOND:
+                break;
+            case Calendar.SECOND:
+                actPassTime /= 1000L;// 秒
+                break;
+            case Calendar.MINUTE:
+                actPassTime /= 1000L * 60;// 秒
+                break;
+            case Calendar.HOUR:
+                actPassTime /= 1000L * 60 * 60;// 秒
+                break;
+            case Calendar.DAY_OF_YEAR:
+                actPassTime /= 1000L * 60 * 60 * 24;// 天
+                break;
+            default:
+                throw new RuntimeException("Not Support Field:" + calendarField);
+        }
+        return actPassTime;
+    }
+
+    /**
+     * 将Unix Timestamp转换为java.util.Date
+     *
+     * @param time
+     * @return
+     */
+    public static Date fromUnixTimestamp(long time) {
+        return new Date(time * 1000);
+    }
+
     public static class DateIterator implements Iterator {
         private final Calendar endFinal;
         private final Calendar spot;
@@ -784,7 +784,7 @@ public class DateUtil {
          * @return <code>true</code> if the iterator has yet to reach the end date
          */
         @Override
-		public boolean hasNext() {
+        public boolean hasNext() {
             return spot.before(endFinal);
         }
 
@@ -794,7 +794,7 @@ public class DateUtil {
          * @return Object calendar for the next date
          */
         @Override
-		public Object next() {
+        public Object next() {
             if (spot.after(endFinal)) {
                 throw new NoSuchElementException();
             }
@@ -819,14 +819,14 @@ public class DateUtil {
          * @see Iterator#remove()
          */
         @Override
-		public void remove() {
+        public void remove() {
             throw new UnsupportedOperationException();
         }
 
     }
 
     public static void main(String[] args) {
-    	
+
         Date d1 = new Date();
         d1 = DateUtil.getMondayInWeek(d1);
         System.out.println(DateUtil.format(d1, "yyyy-MM-dd HH:mm:ss"));

@@ -19,8 +19,11 @@
  #### log4j2.xml 日志配置文件
  #### spring-config-mvc.xml SpringMVC配置文件
  #### spring-config-mvc-test.xml testSpringMVC配置文件
+ 
 ## test:
   #### 单元测试
+ 
+  所有test需要继承BaseTest类，实现spring配置
 
 
 
