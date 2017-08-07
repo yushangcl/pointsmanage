@@ -42,13 +42,13 @@ public class ExpensesRecordAction extends BaseAction{
     @RequestMapping(value = "/index")
     public ModelAndView Index(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
         ModelAndView mav = new ModelAndView();
-        mav.setViewName("/manage/expenses_index");
+        mav.setViewName("/manage/expensesrecord_index");
         return mav;
 
     }
 
     /**
-     * 查询客户信息列表页面
+     * 查询客户消费记录
      *
      * @param
      * @param
@@ -115,7 +115,7 @@ public class ExpensesRecordAction extends BaseAction{
             expensesRecord = expensesRecordService.selectByPrimaryKey(expensesRecords);
         }
         mav.addObject("expensesRecord", expensesRecord);
-        mav.setViewName("/manage/expenses_add");
+        mav.setViewName("/manage/expensesrecord_add");
         return mav;
 
     }

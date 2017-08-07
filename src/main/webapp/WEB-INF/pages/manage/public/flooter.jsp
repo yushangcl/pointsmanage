@@ -11,7 +11,7 @@
         <a href="/index.jsp" onclick="changeClass(0);">客户信息</a>
     </div>
     <div class="side_list1" id="tab_menu1" >
-        <a href="/index.jsp" onclick="changeClass(1);">消费记录</a>
+        <a href="/expenses/index" onclick="changeClass(1);">消费记录</a>
     </div>
     <div class="side_list1" id="tab_menu2">
         <a href="/exchangerecordaction/index" onclick="changeClass(2);">兑换记录</a>

@@ -49,7 +49,7 @@ public class ExchangeRecordAction extends BaseAction {
     }
 
     /**
-     * 查询客户信息列表页面
+     * 查询客户兑换记录
      *
      * @param
      * @param

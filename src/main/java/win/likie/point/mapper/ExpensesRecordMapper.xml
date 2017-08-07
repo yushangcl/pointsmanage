@@ -115,9 +115,8 @@
     select
     <include refid="Base_Column_List" />
     from expenses_record
-    <if test="clientMobile != null ">
-      where  client_mobile LIKE #{clientMobile,jdbcType=VARCHAR}
+    <if test="_parameter != null ">
+      where  client_mobile LIKE #{_parameter}
     </if>
-
   </select>
 </mapper>

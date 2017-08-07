@@ -9,7 +9,6 @@ import win.likie.point.mapper.ExchangeRecordMapper;
 import win.likie.point.utils.DateUtil;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -31,16 +30,11 @@ public class ExchangeRecordServiceImpl implements ExchangeRecordService {
     @Override
     public List<ExchangeRecord> selectExchangeRecord(HashMap<String, String> queryMap) {
         String clientMobile = queryMap.get("clientMobile");
-
-
         if (("").equals(clientMobile)) {
             clientMobile = null;
         } else {
             clientMobile = "%" + clientMobile + "%";//用于模糊查询
         }
-
-
-
         return exchangeRecordMapper.selectAllExchangeRecord(clientMobile);
     }
 

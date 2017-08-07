@@ -1,5 +1,6 @@
 package win.likie.point.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import win.likie.point.dao.IBasicDao;
 import win.likie.point.entity.ExpensesRecord;
 

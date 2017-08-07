@@ -4,12 +4,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>客户兑换记录页面</title>
+    <title>客户消费记录</title>
     <jsp:include page="/WEB-INF/pages/manage/public/comm.jsp"></jsp:include>
     <link rel="stylesheet" type="text/css"
           href="/css/product.css" />
     <script type="text/javascript"
-            src="/js/manage/exchangerecord_add.js"></script>
+            src="/js/manage/expensesrecord_add.js"></script>
 </head>
 <body>
 
@@ -21,19 +21,19 @@
             <form action="" id="saveForm" method="post">
                 <div class="if_main">
                     <div class="topbar topber_line">
-                        <p class="topbar_text">客户兑换记录</p>
+                        <p class="topbar_text">客户消费记录</p>
                         <div class="c"></div>
                     </div>
                     <div class="pro_classinfo">
                         <input type="hidden" id="operMode" name="operMode" value="add" />
-                        <input type="hidden" id="exchangeRecords" name="exchangeRecords" value="${exchangeRecord.exchangeRecords}" />
+                        <input type="hidden" id="expensesRecords" name="expensesRecords" value="${expensesRecord.recordNumber}" />
                         <table cellpadding="0" cellspacing="0" class="pro_classinfo_tb1 w1">
 
                             <tr>
                                 <td colspan="3"><span>客户电话</span>
                                     <p>:</p> <input type="text" name="clientMobile" id="clientMobile"
-                                                    value="${exchangeRecord.clientMobile}" maxlength="20"
-                                            <c:if test="${not empty exchangeRecord }">
+                                                    value="${expensesRecord.clientMobile}" maxlength="20"
+                                            <c:if test="${not empty expensesRecord }">
                                                 class="readonly"  readonly
                                             </c:if>
                                     />
@@ -41,24 +41,24 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><span>兑换积分</span>
-                                    <p>: </p> <input type="text" id="exchangePoints" name="exchangePoints"
+                                <td><span>消费金额</span>
+                                    <p>: </p> <input type="text" id="amount" name="amount"
                                                      maxlength="10" style="width: 160px;"
-                                            <c:if test="${not empty exchangeRecord }">
-                                                value="${exchangeRecord.exchangePoints}"
+                                            <c:if test="${not empty expensesRecord }">
+                                                value="${expensesRecord.amount}"
                                             </c:if>
-                                            <c:if test="${empty exchangeRecord }">
+                                            <c:if test="${empty expensesRecord }">
                                                 value="0"
                                             </c:if>
-                                                     />
+                                    />
                                 </td>
                                 <td>
-                                    <div id="exchangeTime" >
+                                    <div id="expensesTime" >
                                         <span>兑换日期</span>
 
                                         <p>：</p>
-                                        <input type="text" name="exchangeDate" id="exchangeDate"
-                                               value="${exchangeRecord.exchangeDate}" style="width: 185px;"
+                                        <input type="text" name="expensesDate" id="expensesDate"
+                                               value="${expensesRecord.consumptionDate}" style="width: 185px;"
                                                class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
 
                                     </div></td>
@@ -68,7 +68,7 @@
                                 <td colspan="3"><span class="p3">备注</span>
                                     <p>：</p><br />
                                     <textarea cols="45" rows="5" style="width: 600px;"  id="remarks" name="remarks">
-                                        ${exchangeRecord.remarks}
+                                        ${expensesRecord.remarks}
                                     </textarea>
                                 </td>
                             </tr>
@@ -108,7 +108,7 @@
                 <div class="full_btn_box">
                     <div style="margin: 0 auto; width: 260px;">
                         <a class="btn_blue" href="#" onclick="submitClick(this)">保 存</a> <a
-                            id="return_btn" class="btn_green" href="/exchangerecordaction/index" >返
+                            id="return_btn" class="btn_green" href="/expenses/index" >返
                         回</a>
                         <div class="c"></div>
                     </div>

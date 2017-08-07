@@ -33,7 +33,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/clientinfoaction")
-public class ClientInfoAction {
+public class ClientInfoAction extends BaseAction{
 
 
     @Resource
@@ -64,7 +64,7 @@ public class ClientInfoAction {
             @RequestParam(value = "page", defaultValue = "0") int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = SysParamUtil.PAGE_SIZE) int pageSize
     ) {
-        System.out.println("list");
+        _log.warn("list");
         JsonBean bean = new JsonBean();
         //clientMobile = "12234567895";
         Integer totalCount = null;
