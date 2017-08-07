@@ -1,8 +1,8 @@
 /**
  * Created by huahui.wu on 2017/8/7.
  */
-var saveDeal = "/expenses/save";
-var returnPath = "/expenses/index";
+var saveDeal = "/expensesrecordaction/save";
+var returnPath = "/expensesrecordaction/index";
 
 $(function() {
     comm_init_body();
@@ -21,10 +21,10 @@ function init_table() {
 }
 
 function submitClick(theButton) {
-    var exchangeRecords = $("#exchangeRecords").val();
+    var recordNumber = $("#recordNumber").val();
     var clientMobile = $("#clientMobile").val();
-    var exchangePoints = $("#exchangePoints").val();
-    var exchangeDate = $("#exchangeDate").val();
+    var amount = $("#amount").val();
+    var consumptionDate = $("#consumptionDate").val();
     var remarks = $("#remarks").val();
     var re = /^1[34578]\d{9}$/;
     var option = {
@@ -33,9 +33,9 @@ function submitClick(theButton) {
                 required : true,
                 name : "客户电话"
             },
-            exchangePoints : {
+            amount : {
                 number : true,
-                name : "兑换积分"
+                name : "消费金额"
             }
         }
     };

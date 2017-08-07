@@ -2,9 +2,9 @@
  * Created by huahui.wu on 2017/8/7.
  */
 
-var listDeal = "/expenses/list";
-var addIndex = "/expenses/add";
-var detailIndex = "/expenses/detailIndex";
+var listDeal = "/expensesrecordaction/list";
+var addIndex = "/expensesrecordaction/add";
+var detailIndex = "/expensesrecordaction/detailIndex";
 
 $(function(){
     comm_init_body();

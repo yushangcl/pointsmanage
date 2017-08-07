@@ -32,7 +32,7 @@ import java.util.*;
  * Created by huahui.wu on 2017/8/1.
  */
 @Controller
-@RequestMapping(value = "/expenses")
+@RequestMapping(value = "/expensesrecordaction")
 public class ExpensesRecordAction extends BaseAction{
     @Resource
     private ExpensesRecordService expensesRecordService;
@@ -129,10 +129,10 @@ public class ExpensesRecordAction extends BaseAction{
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public @ResponseBody
     JsonBean save(
-            @RequestParam(value = "expensesRecords", defaultValue = "") String expensesRecords,
+            @RequestParam(value = "recordNumber", defaultValue = "") String recordNumber,
             @RequestParam(value = "clientMobile", defaultValue = "") String clientMobile,
-            @RequestParam(value = "expensesPoints", defaultValue = "0") Integer expensesPoints,
-            @RequestParam(value = "expensesDate", defaultValue = "") String expensesDate,
+            @RequestParam(value = "amount", defaultValue = "0") Integer amount,
+            @RequestParam(value = "consumptionDate", defaultValue = "") String consumptionDate,
             @RequestParam(value = "remarks", defaultValue = "") String remarks,
             @RequestParam(value = "operMode", defaultValue = "") String operMode,
             HttpServletRequest request,
