@@ -32,4 +32,14 @@ public class ExpensesRecordServiceImpl implements ExpensesRecordService {
     public ExpensesRecord selectByPrimaryKey(Integer expensesId) {
         return expensesRecordMapper.selectByPrimaryKey(expensesId);
     }
+
+    @Override
+    public Integer insert(ExpensesRecord expensesRecord) {
+        return expensesRecordMapper.insert(expensesRecord);
+    }
+
+    @Override
+    public Integer updateByExpensesRecordId(ExpensesRecord expensesRecord) {
+        return expensesRecordMapper.updateByPrimaryKeySelective(expensesRecord);
+    }
 }

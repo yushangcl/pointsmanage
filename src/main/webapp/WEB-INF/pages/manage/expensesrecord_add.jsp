@@ -26,7 +26,7 @@
                     </div>
                     <div class="pro_classinfo">
                         <input type="hidden" id="operMode" name="operMode" value="add" />
-                        <input type="hidden" id="expensesRecords" name="expensesRecords" value="${expensesRecord.recordNumber}" />
+                        <input type="hidden" id="recordNumber" name="recordNumber" value="${expensesRecord.recordNumber}" />
                         <table cellpadding="0" cellspacing="0" class="pro_classinfo_tb1 w1">
 
                             <tr>

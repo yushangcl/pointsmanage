@@ -12,12 +12,11 @@ import org.springframework.web.servlet.ModelAndView;
 import win.likie.point.dubbo.service.ClientInfoService;
 import win.likie.point.dubbo.service.ExpensesRecordService;
 import win.likie.point.entity.ClientInfo;
-import win.likie.point.entity.ExchangeRecord;
 import win.likie.point.entity.ExpensesRecord;
 import win.likie.point.formbean.JsonBean;
 import win.likie.point.formbean.Page;
+import win.likie.point.utils.DateUtil;
 import win.likie.point.utils.RegexUtils;
-import win.likie.point.utils.StringUtils;
 import win.likie.point.utils.SysParamUtil;
 
 import javax.annotation.Resource;
@@ -25,15 +24,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by huahui.wu on 2017/8/1.
  */
 @Controller
 @RequestMapping(value = "/expensesrecordaction")
-public class ExpensesRecordAction extends BaseAction{
+public class ExpensesRecordAction extends BaseAction {
     @Resource
     private ExpensesRecordService expensesRecordService;
     @Resource
@@ -109,7 +110,7 @@ public class ExpensesRecordAction extends BaseAction{
         ModelAndView mav = new ModelAndView();
         Integer expensesRecords = null;
 
-        ExpensesRecord  expensesRecord = null;
+        ExpensesRecord expensesRecord = null;
         if (!"".equals(expensesRecordsStr)) {
             expensesRecords = Integer.valueOf(expensesRecordsStr);
             expensesRecord = expensesRecordService.selectByPrimaryKey(expensesRecords);
@@ -131,7 +132,7 @@ public class ExpensesRecordAction extends BaseAction{
     JsonBean save(
             @RequestParam(value = "recordNumber", defaultValue = "") String recordNumber,
             @RequestParam(value = "clientMobile", defaultValue = "") String clientMobile,
-            @RequestParam(value = "amount", defaultValue = "0") Integer amount,
+            @RequestParam(value = "amount", defaultValue = "0") Double amount,
             @RequestParam(value = "consumptionDate", defaultValue = "") String consumptionDate,
             @RequestParam(value = "remarks", defaultValue = "") String remarks,
             @RequestParam(value = "operMode", defaultValue = "") String operMode,
@@ -148,65 +149,56 @@ public class ExpensesRecordAction extends BaseAction{
             return bean;
         }
 
-//        clientInfo = expensesRecordService.selectClientInfoByMobile(clientMobile);
-//
-//
-//        if ("add".equals(operMode)) {
-//            if (clientInfo == null) {
-//                bean.fail("该客户不存在，请先在客户信息页面增加该客户！");
-//                return bean;
-//            }
-//
-//            Integer remainingPoints = clientInfo.getRemainingPoints();
-//            if (exchangePoints > remainingPoints) { //当兑换积分>剩余积分时，会出错
-//                bean.fail("该客户积分不够，无法实现兑换，请查清用户剩余积分");
-//                return bean;
-//            }
-//
-//            queryMap.put("clientMobile", clientMobile);
-//            queryMap.put("exchangePoints", String.valueOf(exchangePoints));
-//            queryMap.put("exchangeDate", exchangeDate);
-//            queryMap.put("remarks", remarks);
-//            expensesRecordService.addExchangeRecord(queryMap, clientInfo);
-//        }
-//
-//
-//        if ("update".equals(operMode)) {
-//            ExchangeRecord exchangeRecord = null;
-//
-//            if (!"".equals(exchangeRecordsStr)) {
-//                exchangeRecord = expensesRecordService.selectByPrimaryKey(Integer.valueOf(exchangeRecordsStr));
-//            }
-//
-//            if (clientInfo == null || exchangeRecord == null) {
-//                bean.fail("操作失败！");
-//                return bean;
-//            }
-//            Integer remainingPoints = clientInfo.getRemainingPoints();//剩余积分
-//            Integer convertedPoints = clientInfo.getConvertedPoints();//已换积分
-//            String exchangePointsStr = exchangeRecord.getExchangePoints();
-//            Integer exchangePointsOld = Integer.valueOf(exchangePointsStr);//获取编辑之前的记录
-//
-//            //说明编辑之前的记录是要作废的，那么剩余积分加上上次扣掉的积分，才是当前的剩余积分
-//            remainingPoints += exchangePointsOld;
-//            convertedPoints -= exchangePointsOld;
-//
-//            if (exchangePoints > remainingPoints) { //当兑换积分>剩余积分时，会出错
-//                bean.fail("该客户积分不够，无法实现兑换，请查清用户剩余积分");
-//                return bean;
-//            }
-//            exchangeRecord.setExchangeDate(df.parse(exchangeDate));
-//            exchangeRecord.setRemarks(remarks);
-//            exchangeRecord.setExchangePoints(String.valueOf(exchangePoints));
-//
-//            clientInfo.setUpdateTime(new Date());
-//            clientInfo.setRemainingPoints(remainingPoints);
-//            clientInfo.setConvertedPoints(convertedPoints);
-//
-//            expensesRecordService.updateByPrimaryKey(exchangeRecord);
-//            clientInfoService.updateByPrimaryKeySelective(clientInfo);
-//
-//        }
+        clientInfo = clientInfoService.selectClientInfoByMobile(clientMobile);
+        Integer purchased = clientInfo.getPurchasedPoints(); //已购积分
+        Integer remaining = clientInfo.getRemainingPoints(); //剩余积分
+        Date date = null;
+        if (!consumptionDate.isEmpty()) {
+            DateUtil.parse(consumptionDate, DateUtil.DATE_FORMAT);
+        } else {
+            date = new Date();
+        }
+        if ("add".equals(operMode)) {
+            if (clientInfo == null) {
+                bean.fail("该客户不存在，请先在客户信息页面增加该客户！");
+                return bean;
+            }
+            //添加消费金额记录
+            ExpensesRecord expensesRecord = new ExpensesRecord();
+            expensesRecord.setAmount(amount);
+            expensesRecord.setClientMobile(clientMobile);
+
+            expensesRecord.setConsumptionDate(date);
+            expensesRecord.setRemarks(remarks);
+            expensesRecordService.insert(expensesRecord);
+
+            //计算积分信息
+
+            clientInfo.setPurchasedPoints(purchased + amount.intValue());
+            clientInfo.setRemainingPoints(remaining + amount.intValue());
+            clientInfoService.updateByPrimaryKeySelective(clientInfo);
+
+
+        }
+
+
+        if ("update".equals(operMode)) {
+            //更新消费金额记录
+            ExpensesRecord expensesRecord = expensesRecordService.selectByPrimaryKey(Integer.valueOf(recordNumber));
+            Double amountOld = expensesRecord.getAmount();
+            expensesRecord.setAmount(amount);
+            expensesRecord.setConsumptionDate(date);
+            expensesRecord.setRemarks(remarks);
+            expensesRecordService.updateByExpensesRecordId(expensesRecord);
+            // 更新积分信息 t
+            if (purchased - amount.intValue() + amountOld.intValue() < 0) {
+                bean.fail("更新失败，积分不足");
+                return bean;
+            }
+            clientInfo.setPurchasedPoints(purchased + amount.intValue() - amountOld.intValue());
+            clientInfo.setRemainingPoints(remaining + amount.intValue() - amountOld.intValue());
+            clientInfoService.updateByPrimaryKeySelective(clientInfo);
+        }
         return bean;
 
     }

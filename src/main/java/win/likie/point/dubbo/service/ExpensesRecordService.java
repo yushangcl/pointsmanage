@@ -19,4 +19,10 @@ public interface ExpensesRecordService {
     List<ExpensesRecord> selectExpensesRecord(String clientMobile);
 
     ExpensesRecord selectByPrimaryKey(Integer expensesId);
+
+    Integer insert(ExpensesRecord expensesRecord);
+
+    Integer updateByExpensesRecordId(ExpensesRecord expensesRecord);
+
+
 }
