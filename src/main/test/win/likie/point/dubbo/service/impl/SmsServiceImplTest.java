@@ -18,8 +18,8 @@ public class SmsServiceImplTest extends BaseTest {
 
     @Test
     public void sendSms() throws Exception {
-        Integer status = smsService.sendSms("18368093869", DateUtil.format(new Date(), DateUtil.DATE_FORMAT), "100", "10");
-        System.out.println("短信发送：" + (status == 0 ? "成功" : "失败"));
+//        Integer status = smsService.sendSms("18368093869", DateUtil.format(new Date(), DateUtil.DATE_FORMAT), "100", "10");
+//        System.out.println("短信发送：" + (status == 0 ? "成功" : "失败"));
     }
 
 }
