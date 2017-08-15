@@ -1,6 +1,7 @@
 <%@ page isELIgnored ="false"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -58,7 +59,7 @@
 
                                         <p>：</p>
                                         <input type="text" name="exchangeDate" id="exchangeDate"
-                                               value="${exchangeRecord.exchangeDate}" style="width: 185px;"
+                                               value="<fmt:formatDate pattern="yyyy-MM-dd" value="${exchangeRecord.exchangeDate}"/>" style="width: 185px;"
                                                class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
 
                                     </div></td>
@@ -120,8 +121,6 @@
 
 </div>
 <jsp:include page="/WEB-INF/pages/manage/public/flooter.jsp"></jsp:include>
-
-
 
 </body>
 </html>

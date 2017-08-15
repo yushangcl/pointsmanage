@@ -35,7 +35,7 @@ function init_table() {
             purchasedPoints: {
                 title : "已购积分"
             },
-            convertedPoints: {
+            remainingPoints: {
                 title : "剩余积分"
             },
             info: {

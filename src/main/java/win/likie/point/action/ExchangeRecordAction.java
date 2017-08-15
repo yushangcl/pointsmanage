@@ -15,6 +15,7 @@ import win.likie.point.entity.ClientInfo;
 import win.likie.point.entity.ExchangeRecord;
 import win.likie.point.formbean.JsonBean;
 import win.likie.point.formbean.Page;
+import win.likie.point.utils.DateUtil;
 import win.likie.point.utils.RegexUtils;
 import win.likie.point.utils.StringUtils;
 import win.likie.point.utils.SysParamUtil;
@@ -145,7 +146,12 @@ public class ExchangeRecordAction extends BaseAction {
 
         ClientInfo clientInfo = null;
 
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = null;
+        if (!exchangeDate.isEmpty()) {
+            DateUtil.parse(exchangeDate, DateUtil.DATE_FORMAT);
+        } else {
+            date = new Date();
+        }
 
         JsonBean bean = new JsonBean();
         HashMap<String, String> queryMap = new HashMap<String, String>();
@@ -201,7 +207,7 @@ public class ExchangeRecordAction extends BaseAction {
                 bean.fail("该客户积分不够，无法实现兑换，请查清用户剩余积分");
                 return bean;
             }
-            exchangeRecord.setExchangeDate(df.parse(exchangeDate));
+            exchangeRecord.setExchangeDate(date);
             exchangeRecord.setRemarks(remarks);
             exchangeRecord.setExchangePoints(String.valueOf(exchangePoints));
 

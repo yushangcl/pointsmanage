@@ -1,6 +1,7 @@
 <%@ page isELIgnored ="false"%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -57,8 +58,8 @@
                                         <span>兑换日期</span>
 
                                         <p>：</p>
-                                        <input type="text" name="expensesDate" id="expensesDate"
-                                               value="${expensesRecord.consumptionDate}" style="width: 185px;"
+                                        <input type="text" name="consumptionDate" id="consumptionDate"
+                                               value="<fmt:formatDate pattern="yyyy-MM-dd" value="${expensesRecord.consumptionDate}"/>" style="width: 185px;"
                                                class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
 
                                     </div></td>
@@ -108,7 +109,7 @@
                 <div class="full_btn_box">
                     <div style="margin: 0 auto; width: 260px;">
                         <a class="btn_blue" href="#" onclick="submitClick(this)">保 存</a> <a
-                            id="return_btn" class="btn_green" href="/expenses/index" >返
+                            id="return_btn" class="btn_green" href="/exchangerecordaction/index" >返
                         回</a>
                         <div class="c"></div>
                     </div>
