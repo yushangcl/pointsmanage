@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import win.likie.point.api.AliyunApi;
 import win.likie.point.dubbo.service.ClientInfoService;
 import win.likie.point.dubbo.service.ExchangeRecordService;
 import win.likie.point.entity.ClientInfo;
@@ -27,6 +28,8 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import static win.likie.point.api.AliyunApi.sendVerificationCode;
 
 /**
  * 兑换记录
@@ -219,6 +222,12 @@ public class ExchangeRecordAction extends BaseAction {
             clientInfoService.updateByPrimaryKeySelective(clientInfo);
 
         }
+        clientInfo = clientInfoService.selectClientInfoByMobile(clientMobile);
+        //发送短信
+        AliyunApi.sendVerificationCode(clientInfo.getClientMobile(), DateUtil.format(new Date(),
+                DateUtil.DATE_FORMAT), StringUtils.toString(clientInfo.getConvertedPoints()),
+                StringUtils.toString(clientInfo.getRemainingPoints()));
+
         return bean;
 
     }
