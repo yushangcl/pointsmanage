@@ -26,7 +26,5 @@
   所有test需要继承BaseTest类，实现spring配置
 
 
-
-
-
-
+war包地址
+https://lazyo-my.sharepoint.com/personal/app_lanyo_win/_layouts/15/guestaccess.aspx?folderid=102c23de44455437e8ea19b1f748be9b7&authkey=AdRaQ_lroJBC1FEZKjT4Kbo
