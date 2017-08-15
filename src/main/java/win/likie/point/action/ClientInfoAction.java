@@ -104,7 +104,6 @@ public class ClientInfoAction extends BaseAction{
     @RequestMapping(value = "/add")
     public ModelAndView addIndex(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
         ModelAndView mav = new ModelAndView();
-        System.out.println("add");
         mav.setViewName("/manage/clientInfo_add");
         return mav;
 

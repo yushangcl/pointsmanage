@@ -21,7 +21,12 @@ public class AliyunApi {
 	private static final String methodGet = "GET";
 	private static final String methodPost = "POST";
 
+	//appKey
 	private static final String appCode = Constants.ALIYUN_APPKEY;
+	//签名
+	private static final String signName = Constants.SIGN_NAME;
+	//模板
+	private static final String templateCode = Constants.TEMPLATE_CODE;
 
 	/**
 	 * 发送短信验证码接口
@@ -32,21 +37,21 @@ public class AliyunApi {
 		final String host = "http://sms.market.alicloudapi.com";
 		final String path = "/singleSendSms";
 		Map<String, String> headers = new HashMap<String, String>();
-		//最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
 		headers.put("Authorization", "APPCODE " + appCode);
+
 		Map<String, String> querys = new HashMap<String, String>();
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("date", date);
 		jsonObj.put("icode", iCode);
 		jsonObj.put("scode", sCode);
+
 		querys.put("ParamString", jsonObj.toJSONString());
 		querys.put("RecNum", phoneNum);
-		querys.put("SignName", "昌正一品");
-		querys.put("TemplateCode", "SMS_85615030");
+		querys.put("SignName", signName);
+		querys.put("TemplateCode", templateCode);
 		try {
 			HttpResponse response = HttpUtils.doGet(host, path, methodGet, headers, querys);
-			System.out.println(response);
-		} catch (Exception e) {
+        } catch (Exception e) {
 			System.out.println("发送失败：" + e);
 			return 1;
 		}

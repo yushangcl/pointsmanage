@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import win.likie.point.api.AliyunApi;
 import win.likie.point.dubbo.service.ClientInfoService;
 import win.likie.point.dubbo.service.ExchangeRecordService;
+import win.likie.point.dubbo.service.SmsService;
 import win.likie.point.entity.ClientInfo;
 import win.likie.point.entity.ExchangeRecord;
 import win.likie.point.formbean.JsonBean;
@@ -42,7 +43,8 @@ public class ExchangeRecordAction extends BaseAction {
     private ExchangeRecordService exchangeRecordService;
     @Resource
     private ClientInfoService clientInfoService;
-
+    @Resource
+    private SmsService smsService;
 
     @RequestMapping(value = "/index")
     public ModelAndView Index(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
@@ -65,7 +67,6 @@ public class ExchangeRecordAction extends BaseAction {
             @RequestParam(value = "page", defaultValue = "0") int pageNumber,
             @RequestParam(value = "pageSize", defaultValue = SysParamUtil.PAGE_SIZE) int pageSize
     ) {
-        System.out.println("exchangerecordaction/list");
         JsonBean bean = new JsonBean();
         //clientMobile = "12234567895";
         Integer totalCount = null;
@@ -104,7 +105,6 @@ public class ExchangeRecordAction extends BaseAction {
 
     @RequestMapping(value = "/add")
     public ModelAndView addIndex(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
-        System.out.println("add");
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/manage/exchangerecord_add");
         return mav;
@@ -223,9 +223,10 @@ public class ExchangeRecordAction extends BaseAction {
 
         }
         clientInfo = clientInfoService.selectClientInfoByMobile(clientMobile);
+
         //发送短信
-        AliyunApi.sendVerificationCode(clientInfo.getClientMobile(), DateUtil.format(new Date(),
-                DateUtil.DATE_FORMAT), StringUtils.toString(clientInfo.getConvertedPoints()),
+        smsService.sendSms(clientInfo.getClientMobile(), DateUtil.format(new Date(),
+                DateUtil.DATE_FORMAT), StringUtils.toString(exchangePoints),
                 StringUtils.toString(clientInfo.getRemainingPoints()));
 
         return bean;
