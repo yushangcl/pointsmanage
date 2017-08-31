@@ -24,7 +24,7 @@
     <if test="_parameter != null ">
        where  client_mobile LIKE #{_parameter}
     </if>
-
+    order BY exchange_date desc
   </select>
 
   <select id="selectByClientMobile"  resultMap="BaseResultMap">

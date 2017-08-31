@@ -151,13 +151,14 @@ public class ExchangeRecordAction extends BaseAction {
 
         Date date = null;
         if (!exchangeDate.isEmpty()) {
-            DateUtil.parse(exchangeDate, DateUtil.DATE_FORMAT);
+            date = DateUtil.parse(exchangeDate, DateUtil.DATE_FORMAT);
         } else {
             date = new Date();
         }
 
+
         JsonBean bean = new JsonBean();
-        HashMap<String, String> queryMap = new HashMap<String, String>();
+
         if (!RegexUtils.checkMobile(clientMobile)) {
             bean.fail("手机号码不正确");
             return bean;
@@ -183,10 +184,10 @@ public class ExchangeRecordAction extends BaseAction {
                 bean.fail("该客户积分不够，无法实现兑换，请查清用户剩余积分");
                 return bean;
             }
-
+            HashMap<String, String> queryMap = new HashMap<String, String>();
             queryMap.put("clientMobile", clientMobile);
             queryMap.put("exchangePoints", String.valueOf(exchangePoints));
-            queryMap.put("exchangeDate", exchangeDate);
+            queryMap.put("exchangeDate", date.toString());
             queryMap.put("remarks", remarks);
             exchangeRecordService.addExchangeRecord(queryMap, clientInfo);
         }
