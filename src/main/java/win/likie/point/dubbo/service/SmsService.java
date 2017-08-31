@@ -11,5 +11,5 @@ public interface SmsService {
      * @return 发送状态
      * @throws Exception
      */
-    Integer sendSms(String phoneNum, String date, String iCode, String sCode);
+    Integer sendSms(String phoneNum, String date, String iCode, String sCode, Integer code);
 }

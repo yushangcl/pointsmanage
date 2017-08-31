@@ -11,6 +11,7 @@ public class Constants {
     //appkey
     public final static String ALIYUN_APPKEY = rbn.getString("aliyun.key");
     public final static String SIGN_NAME = rbn.getString("aliyun.sms.sign_name");
-    public final static String TEMPLATE_CODE = rbn.getString("aliyun.sms.template_code");
+    public final static String TEMPLATE_CODE_1 = rbn.getString("aliyun.sms.template_code_1");
+    public final static String TEMPLATE_CODE_2 = rbn.getString("aliyun.sms.template_code_2");
 
 }

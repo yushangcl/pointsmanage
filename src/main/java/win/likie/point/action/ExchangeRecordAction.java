@@ -165,14 +165,20 @@ public class ExchangeRecordAction extends BaseAction {
 
         clientInfo = clientInfoService.selectClientInfoByMobile(clientMobile);
 
+        if (clientInfo == null) {
+            bean.fail("该客户不存在，请先在客户信息页面增加该客户！");
+            return bean;
+        }
 
         if ("add".equals(operMode)) {
-            if (clientInfo == null) {
-                bean.fail("该客户不存在，请先在客户信息页面增加该客户！");
+
+            Integer remainingPoints = clientInfo.getRemainingPoints();
+
+            if (exchangePoints < 2000) {
+                bean.fail("每次兑换积分必须大于2000积分");
                 return bean;
             }
 
-            Integer remainingPoints = clientInfo.getRemainingPoints();
             if (exchangePoints > remainingPoints) { //当兑换积分>剩余积分时，会出错
                 bean.fail("该客户积分不够，无法实现兑换，请查清用户剩余积分");
                 return bean;
@@ -206,6 +212,11 @@ public class ExchangeRecordAction extends BaseAction {
             remainingPoints += exchangePointsOld;
             convertedPoints -= exchangePointsOld;
 
+            if (remainingPoints < 2100) {
+                bean.fail("该客户积分不足，无法实现兑换，请查清用户剩余积分");
+                return bean;
+            }
+
             if (exchangePoints > remainingPoints) { //当兑换积分>剩余积分时，会出错
                 bean.fail("该客户积分不够，无法实现兑换，请查清用户剩余积分");
                 return bean;
@@ -227,7 +238,7 @@ public class ExchangeRecordAction extends BaseAction {
         //发送短信
         smsService.sendSms(clientInfo.getClientMobile(), DateUtil.format(new Date(),
                 DateUtil.DATE_FORMAT), StringUtils.toString(exchangePoints),
-                StringUtils.toString(clientInfo.getRemainingPoints()));
+                StringUtils.toString(clientInfo.getRemainingPoints()), 1);
 
         return bean;
 

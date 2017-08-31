@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import win.likie.point.dubbo.service.ClientInfoService;
 import win.likie.point.dubbo.service.ExpensesRecordService;
+import win.likie.point.dubbo.service.SmsService;
 import win.likie.point.entity.ClientInfo;
 import win.likie.point.entity.ExpensesRecord;
 import win.likie.point.formbean.JsonBean;
 import win.likie.point.formbean.Page;
 import win.likie.point.utils.DateUtil;
 import win.likie.point.utils.RegexUtils;
+import win.likie.point.utils.StringUtils;
 import win.likie.point.utils.SysParamUtil;
 
 import javax.annotation.Resource;
@@ -39,6 +41,8 @@ public class ExpensesRecordAction extends BaseAction {
     private ExpensesRecordService expensesRecordService;
     @Resource
     private ClientInfoService clientInfoService;
+    @Resource
+    private SmsService smsService;
 
     @RequestMapping(value = "/index")
     public ModelAndView Index(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
@@ -122,7 +126,7 @@ public class ExpensesRecordAction extends BaseAction {
     }
 
     /**
-     * 客户兑换记录保存
+     * 客户消费记录保存
      *
      * @throws ParseException
      */
@@ -150,6 +154,17 @@ public class ExpensesRecordAction extends BaseAction {
         }
 
         clientInfo = clientInfoService.selectClientInfoByMobile(clientMobile);
+
+        if (clientInfo == null) {
+//                bean.fail("该客户不存在，请先在客户信息页面增加该客户！");
+            //新增客户
+            HashMap<String, String> map = new HashMap<String, String>();
+            map.put("clientMobile", clientMobile);
+            map.put("clientName", "");
+            clientInfoService.addClientInfo(map);
+        }
+        clientInfo = clientInfoService.selectClientInfoByMobile(clientMobile);
+
         Integer purchased = clientInfo.getPurchasedPoints(); //已购积分
         Integer remaining = clientInfo.getRemainingPoints(); //剩余积分
         Date date = null;
@@ -159,10 +174,7 @@ public class ExpensesRecordAction extends BaseAction {
             date = new Date();
         }
         if ("add".equals(operMode)) {
-            if (clientInfo == null) {
-                bean.fail("该客户不存在，请先在客户信息页面增加该客户！");
-                return bean;
-            }
+
             //添加消费金额记录
             ExpensesRecord expensesRecord = new ExpensesRecord();
             expensesRecord.setAmount(amount);
@@ -199,6 +211,11 @@ public class ExpensesRecordAction extends BaseAction {
             clientInfo.setRemainingPoints(remaining + amount.intValue() - amountOld.intValue());
             clientInfoService.updateByPrimaryKeySelective(clientInfo);
         }
+        //发送短信
+        clientInfo = clientInfoService.selectClientInfoByMobile(clientMobile);
+        smsService.sendSms(clientInfo.getClientMobile(), DateUtil.format(new Date(),
+                DateUtil.DATE_FORMAT), StringUtils.toString(amount),
+                StringUtils.toString(clientInfo.getRemainingPoints()), 2);
         return bean;
 
     }
