@@ -220,4 +220,19 @@ public class ExpensesRecordAction extends BaseAction {
 
     }
 
+    /**
+     * 删除用户消费金额信息
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/delete")
+    public @ResponseBody JsonBean deleteExpenses() throws JsonGenerationException, JsonMappingException, IOException {
+        JsonBean bean = new JsonBean();
+        // 删除对记录&&删除总共积分和消费积分
+        return bean;
+
+    }
+
 }

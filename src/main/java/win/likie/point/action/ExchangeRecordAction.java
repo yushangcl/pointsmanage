@@ -245,4 +245,20 @@ public class ExchangeRecordAction extends BaseAction {
 
     }
 
+    /**
+     * 删除用户兑换积分信息
+     * @return
+     * @throws JsonGenerationException
+     * @throws JsonMappingException
+     * @throws IOException
+     */
+    @RequestMapping(value = "/delete")
+    public @ResponseBody JsonBean deleteExchange() throws JsonGenerationException, JsonMappingException, IOException {
+        JsonBean bean = new JsonBean();
+        // 删除对记录&&删除总共积分和消费积分
+        return bean;
+
+    }
+
+
 }
