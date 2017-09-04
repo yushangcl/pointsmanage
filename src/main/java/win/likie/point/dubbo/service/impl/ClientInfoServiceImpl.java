@@ -94,5 +94,16 @@ public class ClientInfoServiceImpl implements ClientInfoService {
         return clientInfoMapper.updateByPrimaryKeySelective(record);
     }
 
+    //删除
+    @Override
+    public void detelClientInfo(String[] clientIdArray) {
+        String clientMobile = null;
+        if(clientIdArray.length > 0){
+            for (int i=0;i<clientIdArray.length;i++){
+                clientInfoMapper.deleteByPrimaryKey(Integer.valueOf(clientIdArray[i]));
+            }
+        }
+    }
+
 
 }

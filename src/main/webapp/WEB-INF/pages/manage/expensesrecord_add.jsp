@@ -33,12 +33,9 @@
                             <tr>
                                 <td colspan="3"><span>客户电话</span>
                                     <p>:</p> <input type="text" name="clientMobile" id="clientMobile"
-                                                    value="${expensesRecord.clientMobile}" maxlength="20"
-                                            <c:if test="${not empty expensesRecord }">
-                                                class="readonly"  readonly
-                                            </c:if>
+                                                    value="${clientMobile}" maxlength="20"
+                                                    class="readonly"  readonly
                                     />
-                                    <p class="i">*</p>
                                 </td>
                             </tr>
                             <tr>
@@ -58,9 +55,10 @@
                                         <span>兑换日期</span>
 
                                         <p>：</p>
-                                        <input type="text" name="consumptionDate" id="consumptionDate"
-                                               value="<fmt:formatDate pattern="yyyy-MM-dd" value="${expensesRecord.consumptionDate}"/>" style="width: 185px;"
-                                               class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />
+                                        <input id="consumptionDate" name="consumptionDate" value="${startTime }" class="Wdate" style="width: 185px;" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-\#{%d}'});"/>
+                                        <%-- <input type="text" name="consumptionDate" id="consumptionDate"
+                                             alue="<fmt:formatDate pattern="yyyy-MM-dd" value="${expensesRecord.consumptionDate}"/>" style="width: 185px;"
+                                              class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />--%>
 
                                     </div></td>
                                 <td></td>

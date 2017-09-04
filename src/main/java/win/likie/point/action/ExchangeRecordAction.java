@@ -104,10 +104,44 @@ public class ExchangeRecordAction extends BaseAction {
 
 
     @RequestMapping(value = "/add")
-    public ModelAndView addIndex(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+    public ModelAndView addIndex(@RequestParam(value = "clientMobile", defaultValue = "") String clientMobile,
+                                 HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
         ModelAndView mav = new ModelAndView();
+        Date date = new Date();
+        String startTime = DateUtil.toDateString(date);
+        mav.addObject("startTime",startTime);
+        mav.addObject("clientMobile", clientMobile);
         mav.setViewName("/manage/exchangerecord_add");
         return mav;
+
+    }
+
+    //addQuery
+    @RequestMapping(value = "/addQuery")
+    public @ResponseBody
+    JsonBean addQuery(
+            @RequestParam(value = "clientMobile", defaultValue = "") String clientMobile,
+            HttpServletRequest request,HttpServletResponse response) throws ParseException {
+
+        ClientInfo clientInfo = null;
+
+        JsonBean bean = new JsonBean();
+        if(StringUtils.isBlank(clientMobile)){
+            bean.fail("手机号码不能为空");
+            return bean;
+        }else if (!RegexUtils.checkMobile(clientMobile)) {
+            bean.fail("手机号码不正确");
+            return bean;
+        }
+
+        clientInfo = clientInfoService.selectClientInfoByMobile(clientMobile);
+
+        if (clientInfo == null) {
+            bean.fail("该客户不存在，请先在客户信息页面增加该客户！");
+            return bean;
+        }
+
+        return bean;
 
     }
 
@@ -116,12 +150,18 @@ public class ExchangeRecordAction extends BaseAction {
                                     HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
         ModelAndView mav = new ModelAndView();
         Integer exchangeRecords = null;
+        String clientMobile = null;
+        String startTime = null;
 
         ExchangeRecord exchangeRecord = null;
         if (!"".equals(exchangeRecordsStr)) {
             exchangeRecords = Integer.valueOf(exchangeRecordsStr);
             exchangeRecord = exchangeRecordService.selectByPrimaryKey(exchangeRecords);
+            clientMobile = exchangeRecord.getClientMobile();
+            startTime = DateUtil.toDateString(exchangeRecord.getExchangeDate());
         }
+        mav.addObject("clientMobile", clientMobile);
+        mav.addObject("startTime",startTime);
         mav.addObject("exchangeRecord", exchangeRecord);
         mav.setViewName("/manage/exchangerecord_add");
         return mav;

@@ -2,6 +2,7 @@
 var listDeal = "/clientinfoaction/list";
 var addIndex = "/clientinfoaction/add";
 var detailIndex = "/clientinfoaction/detailIndex";
+var delIndex = "/clientinfoaction/delete";
 
 $(function(){
     comm_init_body();
@@ -19,6 +20,7 @@ function init_table() {
         data: {
         },
         tableTrSize: pagegeNum,
+        selectCheck:true,
         fields: {
             clientId: {
                 isRecord : true,
@@ -94,7 +96,43 @@ function info_click(){
 
 }
 
+//删除
+function queryDelete(theButton){
+    var fieldId;
+    var checkedList=new Array();
+    var objs= $("#table").find("tbody").find("input[type=checkbox]:checked");
+    if(objs.length>0){
+        for(var i=0;i<objs.length;i++){
+            fieldId=objs[i].parentElement.parentElement.getAttribute("tr_record_clientId");
+            checkedList.push(fieldId);
+        }
+    }else{
+        showMsgDialog("请选择要删除的问题类别");
+        return false;
+    }
+    showDel(checkedList);//调用删除方法
+    comm_init_frame();
+}
 
+//自定义的删除的方法
+function showDel(checkedList){
+    var msg = null;
+    showResultDialog(function(){
+        //删除操作
+        var url = delIndex;
+        $.post(url, {
+            fieldList : checkedList.toString()
+        },function(data) {
+            if(checkJsonResult(data.code)){
+                $("#tb_main_div").mytable();
+                showMsgDialog("删除成功！");
+            }else{
+                showMsgDialog(data.message);
+            }
+        });
+    }, msg);
+
+}
 
 function addClick(){
     var tm = new Date();

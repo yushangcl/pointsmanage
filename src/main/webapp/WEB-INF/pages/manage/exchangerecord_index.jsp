@@ -31,8 +31,8 @@
                 <div class="c"></div>
             </div>
             <div class="topbar_box">
-                <a onclick="queryClick()">查询</a>
-                <a onclick="addClick()">增加</a>
+                <a onclick="queryClick()">记录查询</a>
+                <a onclick="addQueryClick()">增加查询</a>
                 <div class="c"></div>
             </div>
 

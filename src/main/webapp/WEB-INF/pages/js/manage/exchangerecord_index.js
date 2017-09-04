@@ -2,6 +2,7 @@
 var listDeal = "/exchangerecordaction/list";
 var addIndex = "/exchangerecordaction/add";
 var detailIndex = "/exchangerecordaction/detailIndex";
+var addQuery = "/exchangerecordaction/addQuery";
 
 $(function(){
     comm_init_body();
@@ -35,6 +36,9 @@ function init_table() {
             },
             exchangePoints: {
                 title : "兑换积分"
+            },
+            remarks: {
+                title : "备注信息"
             },
             info: {
                 title : "详细信息",
@@ -83,19 +87,36 @@ function queryClick(){
 function info_click(){
     var sNum = MENU_ID;
     var tm = new Date();
-    var exchangeRecords = $("#row_"+this.id).attr("tr_record_exchangeRecords");
-    var sHref = detailIndex+"?exchangeRecords="+exchangeRecords;
-//	sHref += "&time="+ tm.getTime();
+    var expensesRecords = $("#row_"+this.id).attr("tr_record_exchangeRecords");
+    alert("expensesRecords:"+expensesRecords);
+    var sHref = detailIndex+"?exchangeRecords="+expensesRecords;
     $(location).attr('href', sHref);
 
 }
 
 
 
-function addClick(){
+
+function addQueryClick(){
     var tm = new Date();
-    var sHref = addIndex+"?time="+ tm.getTime();
-    $(location).attr('href', sHref);
+    var clientMobile = $("#clientMobile").val();
+    $.ajax({
+        type: 'post',
+        url: addQuery,
+        dataType: 'json',
+        data: {
+            clientMobile: clientMobile
+        },
+        success: function(data) {
+            //判断当前用户是否存在流量包
+            if(data.code == "success") {
+                var sHref = addIndex+"?clientMobile="+clientMobile+"&time="+ tm.getTime();
+                $(location).attr('href', sHref);
+            }else{
+                showMsgDialog(data.message);
+            }
+        }
+    });
 }
 
 

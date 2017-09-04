@@ -5,6 +5,7 @@
 var listDeal = "/expensesrecordaction/list";
 var addIndex = "/expensesrecordaction/add";
 var detailIndex = "/expensesrecordaction/detailIndex";
+var addQuery = "/exchangerecordaction/addQuery";
 
 $(function(){
     comm_init_body();
@@ -38,6 +39,9 @@ function init_table() {
             },
             amount: {
                 title : "消费金额 (元)"
+            },
+            remarks: {
+                title : "备注信息"
             },
             info: {
                 title : "详细信息",
@@ -93,7 +97,27 @@ function info_click(){
 
 }
 
-
+function addQueryClick(){
+    var tm = new Date();
+    var clientMobile = $("#clientMobile").val();
+    $.ajax({
+        type: 'post',
+        url: addQuery,
+        dataType: 'json',
+        data: {
+            clientMobile: clientMobile
+        },
+        success: function(data) {
+            //判断当前用户是否存在流量包
+            if(data.code == "success") {
+                var sHref = addIndex+"?clientMobile="+clientMobile+"&time="+ tm.getTime();
+                $(location).attr('href', sHref);
+            }else{
+                showMsgDialog(data.message);
+            }
+        }
+    });
+}
 
 function addClick(){
     var tm = new Date();

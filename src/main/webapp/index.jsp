@@ -36,6 +36,7 @@
             <div class="topbar_box">
                 <a onclick="queryClick()">查询</a>
                 <a onclick="addClick()">增加</a>
+                <a onclick="queryDelete()" >删除</a>
                 <div class="c"></div>
             </div>
 

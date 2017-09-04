@@ -38,4 +38,7 @@ public interface ClientInfoService {
 	ClientInfo selectClientInfoByMobile(String clientMobile);
 
 	int updateByPrimaryKeySelective(ClientInfo record);
+
+	//删除操作
+	void detelClientInfo(String[] clientIdArray);
 }

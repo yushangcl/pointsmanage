@@ -100,11 +100,43 @@ public class ExpensesRecordAction extends BaseAction {
     }
 
     @RequestMapping(value = "/add")
-    public ModelAndView addIndex(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
-        System.out.println("add");
+    public ModelAndView addIndex(@RequestParam(value = "clientMobile", defaultValue = "") String clientMobile,
+                                 HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
         ModelAndView mav = new ModelAndView();
+        Date date = new Date();
+        String startTime = DateUtil.toDateString(date);
+        mav.addObject("startTime",startTime);
         mav.setViewName("/manage/expensesrecord_add");
         return mav;
+
+    }
+
+    //addQuery
+    @RequestMapping(value = "/addQuery")
+    public @ResponseBody
+    JsonBean addQuery(
+            @RequestParam(value = "clientMobile", defaultValue = "") String clientMobile,
+            HttpServletRequest request,HttpServletResponse response) throws ParseException {
+
+        ClientInfo clientInfo = null;
+
+        JsonBean bean = new JsonBean();
+        if(StringUtils.isBlank(clientMobile)){
+            bean.fail("手机号码不能为空");
+            return bean;
+        }else if (!RegexUtils.checkMobile(clientMobile)) {
+            bean.fail("手机号码不正确");
+            return bean;
+        }
+
+        clientInfo = clientInfoService.selectClientInfoByMobile(clientMobile);
+
+        if (clientInfo == null) {
+            bean.fail("该客户不存在，请先在客户信息页面增加该客户！");
+            return bean;
+        }
+
+        return bean;
 
     }
 
@@ -113,12 +145,18 @@ public class ExpensesRecordAction extends BaseAction {
                                     HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
         ModelAndView mav = new ModelAndView();
         Integer expensesRecords = null;
+        String clientMobile = null;
+        String startTime = null;
 
         ExpensesRecord expensesRecord = null;
         if (!"".equals(expensesRecordsStr)) {
             expensesRecords = Integer.valueOf(expensesRecordsStr);
             expensesRecord = expensesRecordService.selectByPrimaryKey(expensesRecords);
+            clientMobile = expensesRecord.getClientMobile();
+            startTime = DateUtil.toDateString(expensesRecord.getConsumptionDate());
         }
+        mav.addObject("clientMobile", clientMobile);
+        mav.addObject("startTime",startTime);
         mav.addObject("expensesRecord", expensesRecord);
         mav.setViewName("/manage/expensesrecord_add");
         return mav;

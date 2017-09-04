@@ -3,6 +3,7 @@ package win.likie.point.action;
 import com.fasterxml.jackson.core.JsonGenerationException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -172,5 +173,22 @@ public class ClientInfoAction extends BaseAction{
         }
         return bean;
 
+    }
+
+    /**
+     * 删除类别
+     * @param fieldList
+     * @return
+     */
+    @Transactional
+    @RequestMapping(value="/delete", method = RequestMethod.POST)
+    public @ResponseBody JsonBean delOperation(
+            @RequestParam(value = "fieldList") String fieldList
+    ){
+        JsonBean bean = new JsonBean();
+
+        String[] item = fieldList.split(",");
+        clientInfoService.detelClientInfo(item);
+        return bean;
     }
 }
