@@ -31,9 +31,10 @@ https://lazyo-my.sharepoint.com/personal/app_lanyo_win/_layouts/15/guestaccess.a
 
 
 
-#2017-09-04:
+#<div style='color:red'>2017-09-04:</div>
 
 ##bug：
+
 1、增加消费记录的时候，手机号码没有带过来，导致无法保存
 
 2、增加兑换记录时，参数错误，新增operMode应该是add 但是传入的是update
