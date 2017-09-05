@@ -30,6 +30,8 @@ war包地址
 https://lazyo-my.sharepoint.com/personal/app_lanyo_win/_layouts/15/guestaccess.aspx?folderid=102c23de44455437e8ea19b1f748be9b7&authkey=AdRaQ_lroJBC1FEZKjT4Kbo
 
 
+
+2017-09-04:
 ##bug：
 1、增加消费记录的时候，手机号码没有带过来，导致无法保存
 
