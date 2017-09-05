@@ -31,7 +31,8 @@ https://lazyo-my.sharepoint.com/personal/app_lanyo_win/_layouts/15/guestaccess.a
 
 
 
-2017-09-04:
+#2017-09-04:
+
 ##bug：
 1、增加消费记录的时候，手机号码没有带过来，导致无法保存
 
