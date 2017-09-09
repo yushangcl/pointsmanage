@@ -10,7 +10,7 @@ $(function() {
 });
 function init_table() {
     $("#saveForm").attr("action", saveDeal);
-    var sValue = $("#clientMobile").val();
+    var sValue = $("#recordNumber").val();
     if (sValue != "" && sValue != undefined) {
 
         $("#operMode").val("update");
