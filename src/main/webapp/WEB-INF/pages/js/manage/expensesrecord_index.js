@@ -5,7 +5,7 @@
 var listDeal = "/expensesrecordaction/list";
 var addIndex = "/expensesrecordaction/add";
 var detailIndex = "/expensesrecordaction/detailIndex";
-var addQuery = "/exchangerecordaction/addQuery";
+var addQuery = "/expensesrecordaction/addQuery";
 
 $(function(){
     comm_init_body();
@@ -119,11 +119,6 @@ function addQueryClick(){
     });
 }
 
-function addClick(){
-    var tm = new Date();
-    var sHref = addIndex+"?time="+ tm.getTime();
-    $(location).attr('href', sHref);
-}
 
 
 

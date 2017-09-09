@@ -106,6 +106,7 @@ public class ExpensesRecordAction extends BaseAction {
         Date date = new Date();
         String startTime = DateUtil.toDateString(date);
         mav.addObject("startTime",startTime);
+        mav.addObject("clientMobile",clientMobile);
         mav.setViewName("/manage/expensesrecord_add");
         return mav;
 
