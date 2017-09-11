@@ -55,7 +55,7 @@
                                         <span>兑换日期</span>
 
                                         <p>：</p>
-                                        <input id="exchangeDate" name="exchangeDate" value="${startTime }" class="Wdate" style="width: 185px;" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'%y-%M-\#{%d}'});"/>
+                                        <input id="exchangeDate" name="exchangeDate" value="${startTime }" class="Wdate" style="width: 185px;" type="text" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})"/>
                                         <%--<input type="text" name="exchangeDate" id="exchangeDate"
                                                value="<fmt:formatDate pattern="yyyy-MM-dd" value="${startTime}"/>" style="width: 185px;"
                                                class="Wdate" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd'})" />--%>

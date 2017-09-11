@@ -32,7 +32,7 @@
             </div>
             <div class="topbar_box">
                 <a onclick="queryClick()">记录查询</a>
-                <a onclick="addQueryClick()">增加查询</a>
+                <a onclick="addQueryClick()">增加金额</a>
                 <div class="c"></div>
             </div>
 

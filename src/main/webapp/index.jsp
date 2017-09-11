@@ -36,7 +36,8 @@
             <div class="topbar_box">
                 <a onclick="queryClick()">查询</a>
                 <a onclick="addClick()">增加</a>
-                <a onclick="queryDelete()" >删除</a>
+                <a onclick="add_expenses()" >新增消费</a>
+                <a onclick="add_exchange()" >新增兑换</a>
                 <div class="c"></div>
             </div>
 

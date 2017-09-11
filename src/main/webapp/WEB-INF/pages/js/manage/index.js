@@ -1,50 +1,50 @@
-
 var listDeal = "/clientinfoaction/list";
 var addIndex = "/clientinfoaction/add";
 var detailIndex = "/clientinfoaction/detailIndex";
 var delIndex = "/clientinfoaction/delete";
+var exchange = "/exchangerecordaction/add";
+var expenses = "/expensesrecordaction/add";
 
-$(function(){
+$(function () {
     comm_init_body();
     init_table();
 });
 function init_table() {
     var pagegeNum = basePageNum;
     var infoSrc = "/images/check.png";
-    if(pagegeNum == null)
+    if (pagegeNum == null)
         pagegeNum = 8;
     $("#tb_main_div").mytable({
         actions: {
-            listAction : listDeal
+            listAction: listDeal
         },
-        data: {
-        },
+        data: {},
         tableTrSize: pagegeNum,
-        selectCheck:true,
+        selectCheck: true,
         fields: {
             clientId: {
-                isRecord : true,
-                title : "客户编号",
-                display : false
+                isRecord: true,
+                title: "客户编号",
+                display: false
             },
             clientName: {
-                title : "客户姓名"
+                title: "客户姓名"
             },
             clientMobile: {
-                isRecord : true,
-                title : "客户电话"
+                isRecord: true,
+                title: "客户电话"
             },
             purchasedPoints: {
-                title : "已购积分"
+                title: "已购积分"
             },
             remainingPoints: {
-                title : "剩余积分"
+                title: "剩余积分"
             },
             info: {
-                title : "详细信息",
-                type : "image",
-                src : infoSrc,
-                click : info_click  //图片点击事件：事件中this.id获取行号
+                title: "详细信息",
+                type: "image",
+                src: infoSrc,
+                click: info_click  //图片点击事件：事件中this.id获取行号
 
             }
 
@@ -55,58 +55,58 @@ function init_table() {
 
 
 /*----------------init_table-----------------------*/
-function queryClick(){
+function queryClick() {
     var clientMobile = $("#clientMobile").val();
     var clientName = $("#clientName").val();
 
     var toPage = $("#to_page").val();
     var totalPage = $("#total_page").html();
 
-    if(toPage == "")
+    if (toPage == "")
         toPage = 1;
 
-    if(!isInt(toPage)){
+    if (!isInt(toPage)) {
         showMsgDialog("页码格式错误，非数字");
         return;
     }
-    if(parseInt(toPage) > parseInt(totalPage)){
+    if (parseInt(toPage) > parseInt(totalPage)) {
         toPage = totalPage;
     }
-    if(toPage > 0)
-        toPage =  parseInt(toPage)-1;
+    if (toPage > 0)
+        toPage = parseInt(toPage) - 1;
     $("#tb_main_div").mytable({
         data: {
-            clientMobile : clientMobile,
-            clientName : clientName
+            clientMobile: clientMobile,
+            clientName: clientName
         },
         page: {
-            page : toPage
+            page: toPage
         }
 
     });
 }
 
-function info_click(){
+function info_click() {
     var sNum = MENU_ID;
     var tm = new Date();
-    var clientMobile = $("#row_"+this.id).attr("tr_record_clientMobile");
-    var sHref = detailIndex+"?clientMobile="+clientMobile;
+    var clientMobile = $("#row_" + this.id).attr("tr_record_clientMobile");
+    var sHref = detailIndex + "?clientMobile=" + clientMobile;
 //	sHref += "&time="+ tm.getTime();
     $(location).attr('href', sHref);
 
 }
 
 //删除
-function queryDelete(theButton){
+function queryDelete(theButton) {
     var fieldId;
-    var checkedList=new Array();
-    var objs= $("#table").find("tbody").find("input[type=checkbox]:checked");
-    if(objs.length>0){
-        for(var i=0;i<objs.length;i++){
-            fieldId=objs[i].parentElement.parentElement.getAttribute("tr_record_clientId");
+    var checkedList = new Array();
+    var objs = $("#table").find("tbody").find("input[type=checkbox]:checked");
+    if (objs.length > 0) {
+        for (var i = 0; i < objs.length; i++) {
+            fieldId = objs[i].parentElement.parentElement.getAttribute("tr_record_clientId");
             checkedList.push(fieldId);
         }
-    }else{
+    } else {
         showMsgDialog("请选择要删除的问题类别");
         return false;
     }
@@ -114,19 +114,53 @@ function queryDelete(theButton){
     comm_init_frame();
 }
 
+function add_exchange() {
+    var clientMobile;
+    var checkedList = new Array();
+    var objs = $("#table").find("tbody").find("input[type=checkbox]:checked");
+    if (objs.length > 1) {
+        showMsgDialog("只能选择一条");
+    }
+    if (objs.length == 1) {
+        clientMobile = objs[0].parentElement.parentElement.getAttribute("tr_record_clientMobile");
+    } else {
+        showMsgDialog("请选择要增加的客户");
+        return false;
+    }
+    var sHref = exchange + "?clientMobile=" + clientMobile;
+    $(location).attr('href', sHref);
+}
+
+function add_expenses() {
+    var clientMobile;
+    var checkedList = new Array();
+    var objs = $("#table").find("tbody").find("input[type=checkbox]:checked");
+    if (objs.length > 1) {
+        showMsgDialog("只能选择一条");
+    }
+    if (objs.length == 1) {
+        clientMobile = objs[0].parentElement.parentElement.getAttribute("tr_record_clientMobile");
+    }else {
+        showMsgDialog("请选择要增加的客户");
+        return false;
+    }
+    var sHref = expenses + "?clientMobile=" + clientMobile;
+    $(location).attr('href', sHref);
+}
+
 //自定义的删除的方法
-function showDel(checkedList){
+function showDel(checkedList) {
     var msg = null;
-    showResultDialog(function(){
+    showResultDialog(function () {
         //删除操作
         var url = delIndex;
         $.post(url, {
-            fieldList : checkedList.toString()
-        },function(data) {
-            if(checkJsonResult(data.code)){
+            fieldList: checkedList.toString()
+        }, function (data) {
+            if (checkJsonResult(data.code)) {
                 $("#tb_main_div").mytable();
                 showMsgDialog("删除成功！");
-            }else{
+            } else {
                 showMsgDialog(data.message);
             }
         });
@@ -134,9 +168,9 @@ function showDel(checkedList){
 
 }
 
-function addClick(){
+function addClick() {
     var tm = new Date();
-    var sHref = addIndex+"?time="+ tm.getTime();
+    var sHref = addIndex + "?time=" + tm.getTime();
     $(location).attr('href', sHref);
 }
 
