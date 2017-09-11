@@ -227,7 +227,7 @@ public class ExchangeRecordAction extends BaseAction {
             HashMap<String, String> queryMap = new HashMap<String, String>();
             queryMap.put("clientMobile", clientMobile);
             queryMap.put("exchangePoints", String.valueOf(exchangePoints));
-            queryMap.put("exchangeDate", date.toString());
+            queryMap.put("exchangeDate", DateUtil.format(date, DateUtil.DATE_FORMAT));
             queryMap.put("remarks", remarks);
             exchangeRecordService.addExchangeRecord(queryMap, clientInfo);
         }

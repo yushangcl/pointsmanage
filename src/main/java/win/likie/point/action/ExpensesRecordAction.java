@@ -202,13 +202,16 @@ public class ExpensesRecordAction extends BaseAction {
             map.put("clientName", "");
             clientInfoService.addClientInfo(map);
         }
+        if(amount < 0) {
+            bean.fail("消费金额必须大于1元");
+        }
         clientInfo = clientInfoService.selectClientInfoByMobile(clientMobile);
 
         Integer purchased = clientInfo.getPurchasedPoints(); //已购积分
         Integer remaining = clientInfo.getRemainingPoints(); //剩余积分
         Date date = null;
         if (!consumptionDate.isEmpty()) {
-            DateUtil.parse(consumptionDate, DateUtil.DATE_FORMAT);
+            date = DateUtil.parse(consumptionDate, DateUtil.DATE_FORMAT);
         } else {
             date = new Date();
         }
