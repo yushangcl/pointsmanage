@@ -1,7 +1,5 @@
 package win.likie.point.action;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import win.likie.point.api.AliyunApi;
 import win.likie.point.dubbo.service.ClientInfoService;
 import win.likie.point.dubbo.service.ExchangeRecordService;
 import win.likie.point.dubbo.service.SmsService;
@@ -27,10 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
-import static win.likie.point.api.AliyunApi.sendVerificationCode;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * 兑换记录
@@ -47,7 +44,7 @@ public class ExchangeRecordAction extends BaseAction {
     private SmsService smsService;
 
     @RequestMapping(value = "/index")
-    public ModelAndView Index(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+    public ModelAndView Index(HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/manage/exchangerecord_index");
         return mav;
@@ -105,11 +102,11 @@ public class ExchangeRecordAction extends BaseAction {
 
     @RequestMapping(value = "/add")
     public ModelAndView addIndex(@RequestParam(value = "clientMobile", defaultValue = "") String clientMobile,
-                                 HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+                                 HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
         Date date = new Date();
         String startTime = DateUtil.toDateString(date);
-        mav.addObject("startTime",startTime);
+        mav.addObject("startTime", startTime);
         mav.addObject("clientMobile", clientMobile);
         mav.setViewName("/manage/exchangerecord_add");
         return mav;
@@ -121,15 +118,15 @@ public class ExchangeRecordAction extends BaseAction {
     public @ResponseBody
     JsonBean addQuery(
             @RequestParam(value = "clientMobile", defaultValue = "") String clientMobile,
-            HttpServletRequest request,HttpServletResponse response) throws ParseException {
+            HttpServletRequest request, HttpServletResponse response) throws ParseException {
 
         ClientInfo clientInfo = null;
 
         JsonBean bean = new JsonBean();
-        if(StringUtils.isBlank(clientMobile)){
+        if (StringUtils.isBlank(clientMobile)) {
             bean.fail("手机号码不能为空");
             return bean;
-        }else if (!RegexUtils.checkMobile(clientMobile)) {
+        } else if (!RegexUtils.checkMobile(clientMobile)) {
             bean.fail("手机号码不正确");
             return bean;
         }
@@ -147,7 +144,7 @@ public class ExchangeRecordAction extends BaseAction {
 
     @RequestMapping(value = "/detailIndex")
     public ModelAndView detailIndex(@RequestParam(value = "exchangeRecords", defaultValue = "") String exchangeRecordsStr,
-                                    HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+                                    HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
         Integer exchangeRecords = null;
         String clientMobile = null;
@@ -161,7 +158,7 @@ public class ExchangeRecordAction extends BaseAction {
             startTime = DateUtil.toDateString(exchangeRecord.getExchangeDate());
         }
         mav.addObject("clientMobile", clientMobile);
-        mav.addObject("startTime",startTime);
+        mav.addObject("startTime", startTime);
         mav.addObject("exchangeRecord", exchangeRecord);
         mav.setViewName("/manage/exchangerecord_add");
         return mav;
@@ -287,13 +284,13 @@ public class ExchangeRecordAction extends BaseAction {
 
     /**
      * 删除用户兑换积分信息
+     *
      * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
      * @throws IOException
      */
     @RequestMapping(value = "/delete")
-    public @ResponseBody JsonBean deleteExchange() throws JsonGenerationException, JsonMappingException, IOException {
+    public @ResponseBody
+    JsonBean deleteExchange() throws IOException {
         JsonBean bean = new JsonBean();
         // 删除对记录&&删除总共积分和消费积分
         return bean;

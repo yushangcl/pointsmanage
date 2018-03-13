@@ -1,7 +1,5 @@
 package win.likie.point.action;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,7 +43,7 @@ public class ExpensesRecordAction extends BaseAction {
     private SmsService smsService;
 
     @RequestMapping(value = "/index")
-    public ModelAndView Index(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+    public ModelAndView Index(HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/manage/expensesrecord_index");
         return mav;
@@ -101,7 +99,7 @@ public class ExpensesRecordAction extends BaseAction {
 
     @RequestMapping(value = "/add")
     public ModelAndView addIndex(@RequestParam(value = "clientMobile", defaultValue = "") String clientMobile,
-                                 HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+                                 HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
         Date date = new Date();
         String startTime = DateUtil.toDateString(date);
@@ -143,7 +141,7 @@ public class ExpensesRecordAction extends BaseAction {
 
     @RequestMapping(value = "/detailIndex")
     public ModelAndView detailIndex(@RequestParam(value = "expensesRecords", defaultValue = "") String expensesRecordsStr,
-                                    HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+                                    HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
         Integer expensesRecords = null;
         String clientMobile = null;
@@ -265,12 +263,10 @@ public class ExpensesRecordAction extends BaseAction {
     /**
      * 删除用户消费金额信息
      * @return
-     * @throws JsonGenerationException
-     * @throws JsonMappingException
      * @throws IOException
      */
     @RequestMapping(value = "/delete")
-    public @ResponseBody JsonBean deleteExpenses() throws JsonGenerationException, JsonMappingException, IOException {
+    public @ResponseBody JsonBean deleteExpenses() throws IOException {
         JsonBean bean = new JsonBean();
         // 删除对记录&&删除总共积分和消费积分
         return bean;

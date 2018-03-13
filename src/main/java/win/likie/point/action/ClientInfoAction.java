@@ -1,7 +1,5 @@
 package win.likie.point.action;
 
-import com.fasterxml.jackson.core.JsonGenerationException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +13,6 @@ import win.likie.point.formbean.JsonBean;
 import win.likie.point.formbean.Page;
 import win.likie.point.mapper.ClientInfoMapper;
 import win.likie.point.utils.RegexUtils;
-import win.likie.point.utils.StringUtils;
 import win.likie.point.utils.SysParamUtil;
 
 import javax.annotation.Resource;
@@ -34,7 +31,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/clientinfoaction")
-public class ClientInfoAction extends BaseAction{
+public class ClientInfoAction extends BaseAction {
 
 
     @Resource
@@ -43,7 +40,7 @@ public class ClientInfoAction extends BaseAction{
     private ClientInfoMapper clientInfoMapper;
 
     @RequestMapping(value = "/index")
-    public ModelAndView Index(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+    public ModelAndView Index(HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
 
         mav.setViewName("/index");
@@ -103,7 +100,7 @@ public class ClientInfoAction extends BaseAction{
 
 
     @RequestMapping(value = "/add")
-    public ModelAndView addIndex(HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+    public ModelAndView addIndex(HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
         mav.setViewName("/manage/clientInfo_add");
         return mav;
@@ -112,7 +109,7 @@ public class ClientInfoAction extends BaseAction{
 
     @RequestMapping(value = "/detailIndex")
     public ModelAndView detailIndex(@RequestParam(value = "clientMobile", defaultValue = "") String clientMobile,
-                                    HttpServletRequest request) throws JsonGenerationException, JsonMappingException, IOException {
+                                    HttpServletRequest request) throws IOException {
         ModelAndView mav = new ModelAndView();
         ClientInfo clientInfo = null;
         System.out.println("detailIndex");
@@ -177,14 +174,16 @@ public class ClientInfoAction extends BaseAction{
 
     /**
      * 删除类别
+     *
      * @param fieldList
      * @return
      */
     @Transactional
-    @RequestMapping(value="/delete", method = RequestMethod.POST)
-    public @ResponseBody JsonBean delOperation(
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public @ResponseBody
+    JsonBean delOperation(
             @RequestParam(value = "fieldList") String fieldList
-    ){
+    ) {
         JsonBean bean = new JsonBean();
 
         String[] item = fieldList.split(",");
